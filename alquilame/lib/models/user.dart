@@ -1,3 +1,5 @@
+import 'package:alquilame/models/login.dart';
+
 class UserResponse {
   String? id;
   String? username;
@@ -44,5 +46,16 @@ class UserResponse {
     data['numPublications'] = this.numPublications;
     data['createdAt'] = this.createdAt;
     return data;
+  }
+
+  UserResponse.fromLoginResponse(LoginResponse response) {
+    this.id = response.id;
+    this.username = response.username;
+    this.avatar = response.avatar;
+    this.fullName = response.fullName;
+    this.address = response.address;
+    this.email = response.email;
+    this.phoneNumber = response.phoneNumber;
+    this.numPublications = response.numPublications;
   }
 }

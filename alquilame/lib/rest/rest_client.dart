@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:alquilame/main.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:http_interceptor/http_interceptor.dart';
@@ -150,7 +151,7 @@ class AuthorizationInterceptor implements InterceptorContract {
   Future<ResponseData> interceptResponse({required ResponseData data}) {
     if (data.statusCode == 401 || data.statusCode == 403) {
       Future.delayed(Duration(seconds: 1), () {
-        //GLOBALCONTEXT Y MYAPP: CLASE DEL MAIN Navigator.of(GlobalContext.ctx).push<void>(MyApp.route());
+        Navigator.of(GlobalContext.ctx).push<void>(MyApp.route());
       });
     }
     return Future.value(data);
