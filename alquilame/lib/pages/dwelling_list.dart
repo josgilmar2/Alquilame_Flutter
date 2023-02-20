@@ -30,7 +30,9 @@ class _DwellingListState extends State<DwellingList> {
             return Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                const Text('Failed to fetch dwellings'),
+                const Center(
+                  child: Text('Failed to fetch dwellings'),
+                ),
                 ElevatedButton(
                   onPressed: () {
                     context.read<DwellingBloc>().add(DwellingRefresh());

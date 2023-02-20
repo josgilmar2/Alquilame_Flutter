@@ -1,22 +1,22 @@
 class AllDwellingsResponse {
-  List<Dwelling>? content;
-  int? totalElements;
-  int? totalPages;
-  int? number;
-  int? size;
+  late final List<Dwelling> content;
+  late final int totalElements;
+  late final int totalPages;
+  late final int number;
+  late final int size;
 
   AllDwellingsResponse(
-      {this.content,
-      this.totalElements,
-      this.totalPages,
-      this.number,
-      this.size});
+      {required this.content,
+      required this.totalElements,
+      required this.totalPages,
+      required this.number,
+      required this.size});
 
   AllDwellingsResponse.fromJson(Map<String, dynamic> json) {
     if (json['content'] != null) {
       content = <Dwelling>[];
       json['content'].forEach((v) {
-        content!.add(new Dwelling.fromJson(v));
+        content.add(new Dwelling.fromJson(v));
       });
     }
     totalElements = json['totalElements'];
@@ -28,7 +28,7 @@ class AllDwellingsResponse {
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     if (this.content != null) {
-      data['content'] = this.content!.map((v) => v.toJson()).toList();
+      data['content'] = this.content.map((v) => v.toJson()).toList();
     }
     data['totalElements'] = this.totalElements;
     data['totalPages'] = this.totalPages;
@@ -39,13 +39,18 @@ class AllDwellingsResponse {
 }
 
 class Dwelling {
-  int? id;
-  String? name;
-  String? province;
-  String? image;
-  double? price;
+  late final int id;
+  late final String name;
+  late final String province;
+  late final String image;
+  late final double price;
 
-  Dwelling({this.id, this.name, this.province, this.image, this.price});
+  Dwelling(
+      {required this.id,
+      required this.name,
+      required this.province,
+      required this.image,
+      required this.price});
 
   Dwelling.fromJson(Map<String, dynamic> json) {
     id = json['id'];

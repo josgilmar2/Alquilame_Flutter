@@ -39,7 +39,7 @@ class DwellingBloc extends Bloc<DwellingEvent, DwellingState> {
         ));
       }
       final dwellings = await _dwellingService.getAllDwellings(page);
-      emitter(dwellings!.isEmpty
+      emitter(dwellings.isEmpty
           ? state.copyWith(hasReachedMax: true)
           : state.copyWith(
               status: DwellingStatus.success,
@@ -54,7 +54,7 @@ class DwellingBloc extends Bloc<DwellingEvent, DwellingState> {
   Future<void> _onDwellingRefresh(
       DwellingRefresh event, Emitter<DwellingState> emitter) async {
     final dwellings = await _dwellingService.getAllDwellings(0);
-    return emitter(dwellings!.isEmpty
+    return emitter(dwellings.isEmpty
         ? state.copyWith(hasReachedMax: true)
         : state.copyWith(
             status: DwellingStatus.success,

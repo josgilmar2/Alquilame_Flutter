@@ -2,7 +2,7 @@ import 'package:alquilame/blocs/blocs.dart';
 import 'package:alquilame/config/locator.dart';
 import 'package:alquilame/models/models.dart';
 import 'package:alquilame/pages/pages.dart';
-import 'package:alquilame/services/dwelling_service.dart';
+
 import 'package:alquilame/services/services.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

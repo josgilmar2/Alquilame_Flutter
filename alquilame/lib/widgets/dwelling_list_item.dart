@@ -1,8 +1,9 @@
 import 'package:alquilame/models/models.dart';
+import 'package:alquilame/pages/dwelling_detail_page.dart';
 import 'package:flutter/material.dart';
 
 class DwellingListItem extends StatelessWidget {
-  const DwellingListItem({super.key, required this.dwelling});
+  const DwellingListItem({Key? key, required this.dwelling}) : super(key: key);
 
   final Dwelling dwelling;
 
@@ -11,24 +12,49 @@ class DwellingListItem extends StatelessWidget {
     final textTheme = Theme.of(context).textTheme;
     return Material(
       child: InkWell(
-        child: Card(
-          semanticContainer: true,
-          clipBehavior: Clip.antiAliasWithSaveLayer,
-          shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-          elevation: 5,
-          margin: const EdgeInsets.all(10),
-          child: Column(
-            children: [Text("${dwelling.name}")],
-          ),
-        ),
         /*onTap: () {
           Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => dwellingDetailPage(id: dwelling.id),
-              ));
+            context,
+            MaterialPageRoute(
+              builder: (context) => DwellingDetailPage(id: dwelling.id),
+            ),
+          );
         },*/
+        child: Card(
+          elevation: 4.0,
+          child: Column(
+            children: [
+              ListTile(
+                title: Text(dwelling.name),
+                subtitle: Text("${dwelling.price} €"),
+              ),
+              SizedBox(
+                  height: 200,
+                  child: Image.network(
+                    "http://localhost:8080/download/${dwelling.image}",
+                    fit: BoxFit.cover,
+                  )),
+              ButtonBar(
+                children: [
+                  TextButton(
+                    child: const Text('VER PROPIETARIO'),
+                    onPressed: () {/* ... */},
+                  ),
+                  TextButton(
+                    child: const Text('VER DETALLES'),
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) =>
+                                  DwellingDetailPage(id: dwelling.id)));
+                    },
+                  )
+                ],
+              ),
+            ],
+          ),
+        ),
       ),
     );
   }
