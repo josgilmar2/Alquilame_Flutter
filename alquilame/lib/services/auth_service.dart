@@ -8,8 +8,8 @@ import 'package:get_it/get_it.dart';
 import 'package:injectable/injectable.dart';
 
 abstract class AuthService {
-  Future<UserResponse?> getCurrentUser();
-  Future<UserResponse> signInWithUsernameAndPassword(
+  Future<LoginResponse?> getCurrentUser();
+  Future<LoginResponse> signInWithUsernameAndPassword(
       String username, String password);
   Future<void> signOut();
 }
@@ -30,22 +30,24 @@ class JwtAuthService extends AuthService {
   }
 
   @override
-  Future<UserResponse?> getCurrentUser() async {
+  Future<LoginResponse?> getCurrentUser() async {
     print("get current user");
     String? token = _localStorageService.getFromDisk("user_token");
     if (token != null) {
-      UserResponse response = await _userRepository.profile();
+      LoginResponse response = await _userRepository.profile();
       return response;
     }
     return null;
   }
 
   @override
-  Future<UserResponse> signInWithUsernameAndPassword(
+  Future<LoginResponse> signInWithUsernameAndPassword(
       String username, String password) async {
     LoginResponse response = await _authRepository.doLogin(username, password);
     await _localStorageService.saveToDisk('user_token', response.token);
-    return UserResponse.fromLoginResponse(response);
+    print("Token de cuando el usuario se loguea: " +
+        _localStorageService.getFromDisk("user_token"));
+    return response;
   }
 
   @override

@@ -6,7 +6,7 @@ import 'package:bloc_concurrency/bloc_concurrency.dart';
 import 'package:stream_transform/stream_transform.dart';
 
 const throttleDuration = Duration(milliseconds: 100);
-int page = 0;
+int page = -1;
 
 EventTransformer<E> throttleDroppable<E>(Duration duration) {
   return (events, mapper) {
@@ -22,15 +22,16 @@ class DwellingBloc extends Bloc<DwellingEvent, DwellingState> {
         _dwellingService = dwellingService,
         super(const DwellingState()) {
     on<DwellingFetched>(_onDwellingFetched);
+    on<DwellingRefresh>(_onDwellingRefresh);
   }
 
-  _onDwellingFetched(
+  Future<void> _onDwellingFetched(
       DwellingFetched event, Emitter<DwellingState> emitter) async {
     if (state.hasReachedMax) return;
     page += 1;
     try {
       if (state.status == DwellingStatus.initial) {
-        final dwellings = await _dwellingService.getAllDwellings();
+        final dwellings = await _dwellingService.getAllDwellings(0);
         return emitter(state.copyWith(
           status: DwellingStatus.success,
           dwellings: dwellings,
@@ -45,7 +46,19 @@ class DwellingBloc extends Bloc<DwellingEvent, DwellingState> {
               dwellings: List.of(state.dwellings)..addAll(dwellings),
               hasReachedMax: false));
     } catch (_) {
+      page = -1;
       emitter(state.copyWith(status: DwellingStatus.failure));
     }
+  }
+
+  Future<void> _onDwellingRefresh(
+      DwellingRefresh event, Emitter<DwellingState> emitter) async {
+    final dwellings = await _dwellingService.getAllDwellings(0);
+    return emitter(dwellings!.isEmpty
+        ? state.copyWith(hasReachedMax: true)
+        : state.copyWith(
+            status: DwellingStatus.success,
+            dwellings: List.of(state.dwellings)..addAll(dwellings),
+            hasReachedMax: false));
   }
 }

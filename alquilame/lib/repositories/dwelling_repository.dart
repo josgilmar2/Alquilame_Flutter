@@ -14,9 +14,9 @@ class DwellingRepository {
     _client = getIt<RestAuthenticatedClient>();
   }
 
-  Future<List<Dwelling>?> getAllDwellings([int starterIndex = 1]) async {
+  Future<List<Dwelling>?> getAllDwellings([int starterIndex = -1]) async {
     String url = "/dwelling/?page=$starterIndex";
-
+    print(starterIndex);
     var jsonResponse = await _client.get(url);
     return AllDwellingsResponse.fromJson(jsonDecode(jsonResponse)).content;
   }

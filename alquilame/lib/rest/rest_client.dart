@@ -140,7 +140,7 @@ class AuthorizationInterceptor implements InterceptorContract {
   Future<RequestData> interceptRequest({required RequestData data}) async {
     try {
       var token = await _localStorageService.getFromDisk("user_token");
-      data.headers["Authorization"] = "Bearer" + token;
+      data.headers["Authorization"] = "Bearer " + token;
     } catch (e) {
       print(e);
     }

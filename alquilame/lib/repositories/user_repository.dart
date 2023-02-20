@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:alquilame/models/models.dart';
 import 'package:alquilame/models/user.dart';
 import 'package:alquilame/rest/rest.dart';
 import 'package:get_it/get_it.dart';
@@ -19,6 +20,6 @@ class UserRepository {
     String url = "/user/profile";
 
     var jsonResponse = await _client.get(url);
-    return UserResponse.fromJson(jsonDecode(jsonResponse));
+    return LoginResponse.fromJson(jsonDecode(jsonResponse));
   }
 }

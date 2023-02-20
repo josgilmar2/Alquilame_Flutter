@@ -18,12 +18,13 @@ class DwellingService {
         .then((value) => _localStorageService = value);
   }
 
-  Future<List<Dwelling>?> getAllDwellings([int starterIndex = 1]) async {
+  Future<List<Dwelling>?> getAllDwellings(int starterIndex) async {
     String? token = _localStorageService.getFromDisk("user_token");
     if (token != null) {
-      List<Dwelling>? response = await _dwellingRepository.getAllDwellings();
+      List<Dwelling>? response =
+          await _dwellingRepository.getAllDwellings(starterIndex);
       return response;
     }
-    return null;
+    throw Exception('Failed to load the most popular movies');
   }
 }

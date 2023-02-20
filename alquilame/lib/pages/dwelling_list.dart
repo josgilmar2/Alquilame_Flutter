@@ -27,7 +27,18 @@ class _DwellingListState extends State<DwellingList> {
       builder: (context, state) {
         switch (state.status) {
           case DwellingStatus.failure:
-            return const Center(child: Text('failed to fetch films'));
+            return Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const Text('Failed to fetch dwellings'),
+                ElevatedButton(
+                  onPressed: () {
+                    context.read<DwellingBloc>().add(DwellingRefresh());
+                  },
+                  child: const Text('Try again'),
+                ),
+              ],
+            );
           case DwellingStatus.success:
             if (state.dwellings.isEmpty) {
               return const Center(child: Text('no films'));
