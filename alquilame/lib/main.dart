@@ -49,9 +49,11 @@ class MyApp extends StatelessWidget {
         builder: (context, state) {
           GlobalContext.ctx = context;
           if (state is AuthAuthenticated) {
-            return HomePage(user: state.user);
+            return HomePage(
+              user: state.user,
+            );
           }
-          return LoginPage();
+          return const LoginPage();
         },
       ),
     );

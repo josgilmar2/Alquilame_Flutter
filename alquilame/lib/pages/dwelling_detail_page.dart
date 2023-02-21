@@ -13,10 +13,6 @@ class DwellingDetailPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Details'),
-        backgroundColor: Colors.black87,
-      ),
       body: BlocProvider(
         create: (context) {
           final dwellingService = getIt<DwellingService>();

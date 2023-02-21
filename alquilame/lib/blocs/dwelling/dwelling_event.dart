@@ -8,3 +8,5 @@ abstract class DwellingEvent extends Equatable {
 class DwellingFetched extends DwellingEvent {}
 
 class DwellingRefresh extends DwellingEvent {}
+
+class DwellingUserFetched extends DwellingEvent {}

@@ -20,6 +20,13 @@ class UserRepository {
     String url = "/user/profile";
 
     var jsonResponse = await _client.get(url);
-    return LoginResponse.fromJson(jsonDecode(jsonResponse));
+    return UserResponse.fromJson(jsonDecode(jsonResponse));
+  }
+
+  Future<List<Dwelling>> getUserFavouritesDwellings(int page) async {
+    String url = "/user/favourites";
+
+    var jsonResponse = await _client.get(url);
+    return AllDwellingsResponse.fromJson(jsonDecode(jsonResponse)).content;
   }
 }

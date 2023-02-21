@@ -15,7 +15,7 @@ class AuthLoading extends AuthState {}
 class AuthNotAuthenticated extends AuthState {}
 
 class AuthAuthenticated extends AuthState {
-  final LoginResponse user;
+  final UserResponse user;
 
   AuthAuthenticated({required this.user});
 

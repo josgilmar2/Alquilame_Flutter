@@ -11,7 +11,7 @@ abstract class AuthEvent extends Equatable {
 class AppLoaded extends AuthEvent {}
 
 class UserLoggedIn extends AuthEvent {
-  final LoginResponse user;
+  final UserResponse user;
 
   UserLoggedIn({required this.user});
 

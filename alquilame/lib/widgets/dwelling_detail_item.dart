@@ -157,14 +157,14 @@ class DwellingDetailItem extends StatelessWidget {
                           Column(
                             children: <Widget>[
                               Text(
-                                "${dwellingDetail?.price}",
+                                "${dwellingDetail?.price} €",
                                 style: const TextStyle(
                                     color: Colors.black,
                                     fontWeight: FontWeight.bold,
                                     fontSize: 20.0),
                               ),
                               Text(
-                                "${dwellingDetail?.m2}",
+                                "${dwellingDetail?.m2} m²",
                                 style: const TextStyle(
                                     fontSize: 12, color: Colors.grey),
                               )
@@ -187,7 +187,7 @@ class DwellingDetailItem extends StatelessWidget {
                             ),
                           ),
                           child: const Text(
-                            "Book Now",
+                            "Alquilar ahora",
                             style: TextStyle(fontWeight: FontWeight.normal),
                           ),
                           onPressed: () {

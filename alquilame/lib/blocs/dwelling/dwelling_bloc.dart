@@ -23,6 +23,7 @@ class DwellingBloc extends Bloc<DwellingEvent, DwellingState> {
         super(const DwellingState()) {
     on<DwellingFetched>(_onDwellingFetched);
     on<DwellingRefresh>(_onDwellingRefresh);
+    on<DwellingUserFetched>(_onDwellingUserFetched);
   }
 
   Future<void> _onDwellingFetched(
@@ -60,5 +61,31 @@ class DwellingBloc extends Bloc<DwellingEvent, DwellingState> {
             status: DwellingStatus.success,
             dwellings: List.of(state.dwellings)..addAll(dwellings),
             hasReachedMax: false));
+  }
+
+  Future<void> _onDwellingUserFetched(
+      DwellingUserFetched event, Emitter<DwellingState> emitter) async {
+    if (state.hasReachedMax) return;
+    page += 1;
+    try {
+      if (state.status == DwellingStatus.initial) {
+        final dwellings = await _dwellingService.getUserDwellings(0);
+        return emitter(state.copyWith(
+          status: DwellingStatus.success,
+          dwellings: dwellings,
+          hasReachedMax: false,
+        ));
+      }
+      final dwellings = await _dwellingService.getUserDwellings(page);
+      emitter(dwellings.isEmpty
+          ? state.copyWith(hasReachedMax: true)
+          : state.copyWith(
+              status: DwellingStatus.success,
+              dwellings: List.of(state.dwellings)..addAll(dwellings),
+              hasReachedMax: false));
+    } catch (_) {
+      page = -1;
+      emitter(state.copyWith(status: DwellingStatus.failure));
+    }
   }
 }

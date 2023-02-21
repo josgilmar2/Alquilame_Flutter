@@ -38,4 +38,14 @@ class DwellingService {
     }
     throw Exception("Failed to load the dwelling $id details");
   }
+
+  Future<List<Dwelling>> getUserDwellings(int page) async {
+    String? token = _localStorageService.getFromDisk("user_token");
+    if (token != null) {
+      List<Dwelling> response =
+          await _dwellingRepository.getUserDwellings(page);
+      return response;
+    }
+    throw Exception("Failed to load your users dwellings");
+  }
 }

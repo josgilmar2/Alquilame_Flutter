@@ -8,7 +8,9 @@ class UserResponse {
   String? address;
   String? email;
   String? phoneNumber;
+  String? role;
   int? numPublications;
+  int? numLiked;
   String? createdAt;
 
   UserResponse(
@@ -19,7 +21,9 @@ class UserResponse {
       this.address,
       this.email,
       this.phoneNumber,
+      this.role,
       this.numPublications,
+      this.numLiked,
       this.createdAt});
 
   UserResponse.fromJson(Map<String, dynamic> json) {
@@ -30,7 +34,9 @@ class UserResponse {
     address = json['address'];
     email = json['email'];
     phoneNumber = json['phoneNumber'];
+    role = json['role'];
     numPublications = json['numPublications'];
+    numLiked = json['numLiked'];
     createdAt = json['createdAt'];
   }
 
@@ -43,7 +49,9 @@ class UserResponse {
     data['address'] = this.address;
     data['email'] = this.email;
     data['phoneNumber'] = this.phoneNumber;
+    data['role'] = this.role;
     data['numPublications'] = this.numPublications;
+    data['numLiked'] = this.numLiked;
     data['createdAt'] = this.createdAt;
     return data;
   }

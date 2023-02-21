@@ -1,38 +1,38 @@
 class OneDwellingResponse {
-  int? id;
-  String? name;
-  String? province;
-  String? image;
-  double? price;
-  String? address;
-  String? description;
-  String? type;
-  int? m2;
-  int? numBedrooms;
-  int? numBathrooms;
-  bool? hasElevator;
-  bool? hasPool;
-  bool? hasTerrace;
-  bool? hasGarage;
-  Owner? owner;
+  late final int id;
+  late final String name;
+  late final String province;
+  late final String image;
+  late final double price;
+  late final String address;
+  late final String description;
+  late final String type;
+  late final double m2;
+  late final int numBedrooms;
+  late final int numBathrooms;
+  late final bool hasElevator;
+  late final bool hasPool;
+  late final bool hasTerrace;
+  late final bool hasGarage;
+  late final Owner? owner;
 
   OneDwellingResponse(
-      {this.id,
-      this.name,
-      this.province,
-      this.image,
-      this.price,
-      this.address,
-      this.description,
-      this.type,
-      this.m2,
-      this.numBedrooms,
-      this.numBathrooms,
-      this.hasElevator,
-      this.hasPool,
-      this.hasTerrace,
-      this.hasGarage,
-      this.owner});
+      {required this.id,
+      required this.name,
+      required this.province,
+      required this.image,
+      required this.price,
+      required this.address,
+      required this.description,
+      required this.type,
+      required this.m2,
+      required this.numBedrooms,
+      required this.numBathrooms,
+      required this.hasElevator,
+      required this.hasPool,
+      required this.hasTerrace,
+      required this.hasGarage,
+      required this.owner});
 
   OneDwellingResponse.fromJson(Map<String, dynamic> json) {
     id = json['id'];

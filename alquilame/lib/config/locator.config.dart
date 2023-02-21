@@ -11,6 +11,7 @@ import 'package:alquilame/repositories/user_repository.dart' as _i6;
 import 'package:alquilame/rest/rest_client.dart' as _i3;
 import 'package:alquilame/services/auth_service.dart' as _i8;
 import 'package:alquilame/services/dwelling_service.dart' as _i7;
+import 'package:alquilame/services/user_service.dart' as _i9;
 import 'package:get_it/get_it.dart' as _i1;
 import 'package:injectable/injectable.dart'
     as _i2; // ignore_for_file: unnecessary_lambdas
@@ -34,6 +35,7 @@ extension GetItInjectableX on _i1.GetIt {
     gh.singleton<_i6.UserRepository>(_i6.UserRepository());
     gh.singleton<_i7.DwellingService>(_i7.DwellingService());
     gh.singleton<_i8.JwtAuthService>(_i8.JwtAuthService());
+    gh.singleton<_i9.UserService>(_i9.UserService());
     return this;
   }
 }
