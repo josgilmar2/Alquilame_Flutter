@@ -1,5 +1,6 @@
 import 'package:alquilame/config/locator.dart';
 import 'package:alquilame/models/all_dwellings.dart';
+import 'package:alquilame/models/user.dart';
 import 'package:alquilame/repositories/repositories.dart';
 import 'package:alquilame/services/services.dart';
 import 'package:get_it/get_it.dart';
@@ -18,13 +19,22 @@ class UserService {
         .then((value) => _localStorageService = value);
   }
 
-  Future<List<Dwelling>> getUserFavouriteDwellings(int page) async {
+  Future<AllDwellingsResponse> getUserFavouriteDwellings(int page) async {
     String? token = _localStorageService.getFromDisk("user_token");
     if (token != null) {
-      List<Dwelling> response =
+      AllDwellingsResponse response =
           await _userRepository.getUserFavouritesDwellings(page);
       return response;
     }
     throw Exception("Failed to load user favourite dwellings");
+  }
+
+  Future<List<UserResponse>?> getAllUsers(int page) async {
+    String? token = _localStorageService.getFromDisk("user_token");
+    if (token != null) {
+      List<UserResponse>? response = await _userRepository.getAllUsers(page);
+      return response;
+    }
+    return null;
   }
 }

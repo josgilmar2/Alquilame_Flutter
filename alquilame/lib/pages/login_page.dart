@@ -1,5 +1,6 @@
 import 'package:alquilame/blocs/blocs.dart';
 import 'package:alquilame/config/locator.dart';
+import 'package:alquilame/pages/register_page.dart';
 import 'package:alquilame/services/services.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -235,7 +236,11 @@ class __SignInFormState extends State<_SignInForm> {
                                 color: Colors.blue,
                                 fontWeight: FontWeight.bold)),
                         onPressed: () {
-                          //Register Page
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => const RegisterPage(),
+                              ));
                         },
                       )
                     ],

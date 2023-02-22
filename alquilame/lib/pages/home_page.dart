@@ -1,6 +1,7 @@
 import 'package:alquilame/blocs/blocs.dart';
 import 'package:alquilame/config/locator.dart';
 import 'package:alquilame/models/models.dart';
+import 'package:alquilame/pages/dwelling_favourites_list_page.dart';
 import 'package:alquilame/pages/dwelling_user_list_page.dart';
 import 'package:alquilame/pages/pages.dart';
 import 'package:alquilame/services/services.dart';
@@ -85,8 +86,9 @@ class _HomePageState extends State<HomePage> {
                     height: 120,
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(100),
-                      child: Image.network(
-                          "http://localhost:8080/download/${widget.user.avatar}"),
+                      child: Image.network(widget.user.avatar == null
+                          ? "https://simulacionymedicina.es/wp-content/uploads/2015/11/default-avatar-300x300-1.jpg"
+                          : "http://localhost:8080/download/${widget.user.avatar}"),
                     ),
                   ),
                   const SizedBox(height: 10),
@@ -117,7 +119,14 @@ class _HomePageState extends State<HomePage> {
                   ProfileList(
                       title: "Ver mis favoritas",
                       iconData: Icons.favorite,
-                      onPress: () {}),
+                      onPress: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) =>
+                                  const DwellingFavouritesListPage(),
+                            ));
+                      }),
                   ProfileList(
                       title: "Ver mis viviendas",
                       iconData: Icons.home,

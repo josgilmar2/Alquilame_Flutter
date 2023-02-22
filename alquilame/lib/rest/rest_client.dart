@@ -71,6 +71,18 @@ class RestClient {
     }
   }
 
+  Future<dynamic> delete(String url) async {
+    try {
+      Uri uri = Uri.parse(ApiConstants.baseUrl + url);
+
+      final response = await _httpClient!.delete(uri);
+      var jsonResponse = _response(response);
+      return jsonResponse;
+    } on SocketException catch (e) {
+      throw Exception('No internet connection: ${e.message}');
+    }
+  }
+
   dynamic _response(http.Response response) {
     switch (response.statusCode) {
       case 200:

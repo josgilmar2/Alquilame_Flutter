@@ -23,10 +23,17 @@ class UserRepository {
     return UserResponse.fromJson(jsonDecode(jsonResponse));
   }
 
-  Future<List<Dwelling>> getUserFavouritesDwellings(int page) async {
+  Future<AllDwellingsResponse> getUserFavouritesDwellings(int page) async {
     String url = "/user/favourites";
 
     var jsonResponse = await _client.get(url);
-    return AllDwellingsResponse.fromJson(jsonDecode(jsonResponse)).content;
+    return AllDwellingsResponse.fromJson(jsonDecode(jsonResponse));
+  }
+
+  Future<List<UserResponse>?> getAllUsers(int page) async {
+    String url = "/user/";
+
+    var jsonResponse = await _client.get(url);
+    return AllUserResponse.fromJson(jsonDecode(jsonResponse)).content;
   }
 }

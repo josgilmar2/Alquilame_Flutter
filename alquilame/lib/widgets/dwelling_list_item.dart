@@ -31,7 +31,9 @@ class DwellingListItem extends StatelessWidget {
               SizedBox(
                   height: 200,
                   child: Image.network(
-                    "http://localhost:8080/download/${dwelling.image}",
+                    dwelling.image == null
+                        ? "https://areajugones.sport.es/wp-content/uploads/2020/12/zoneri-021-headquarters-garrison.jpg"
+                        : "http://localhost:8080/download/${dwelling.image}",
                     fit: BoxFit.cover,
                   )),
               ButtonBar(

@@ -19,10 +19,10 @@ class DwellingService {
         .then((value) => _localStorageService = value);
   }
 
-  Future<List<Dwelling>> getAllDwellings(int starterIndex) async {
+  Future<AllDwellingsResponse> getAllDwellings(int starterIndex) async {
     String? token = _localStorageService.getFromDisk("user_token");
     if (token != null) {
-      List<Dwelling>? response =
+      AllDwellingsResponse response =
           await _dwellingRepository.getAllDwellings(starterIndex);
       return response;
     }
@@ -39,13 +39,27 @@ class DwellingService {
     throw Exception("Failed to load the dwelling $id details");
   }
 
-  Future<List<Dwelling>> getUserDwellings(int page) async {
+  Future<AllDwellingsResponse> getUserDwellings(int page) async {
     String? token = _localStorageService.getFromDisk("user_token");
     if (token != null) {
-      List<Dwelling> response =
+      AllDwellingsResponse response =
           await _dwellingRepository.getUserDwellings(page);
       return response;
     }
     throw Exception("Failed to load your users dwellings");
+  }
+
+  Future<OneDwellingResponse> markAsFavourite(int id) async {
+    String? token = _localStorageService.getFromDisk("user_token");
+    if (token != null) {
+      OneDwellingResponse response =
+          await _dwellingRepository.markAsFavourite(id);
+      return response;
+    }
+    throw Exception("Failed to mark as favourite");
+  }
+
+  Future<void> deleteFavourite(int id) async {
+    return _dwellingRepository.deleteFavourite(id);
   }
 }

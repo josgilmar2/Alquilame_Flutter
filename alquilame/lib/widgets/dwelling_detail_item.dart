@@ -1,5 +1,8 @@
+import 'package:alquilame/blocs/blocs.dart';
+import 'package:alquilame/blocs/dwelling_favourite/dwelling_favourite.dart';
 import 'package:alquilame/models/models.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class DwellingDetailItem extends StatelessWidget {
   const DwellingDetailItem({super.key, required this.dwellingDetail});
@@ -8,6 +11,8 @@ class DwellingDetailItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    bool isFavorited = context
+        .select((DwellingFavouritesBloc bloc) => _isFavorited(bloc.state));
     return Scaffold(
       backgroundColor: Colors.black,
       body: Stack(
@@ -52,11 +57,38 @@ class DwellingDetailItem extends StatelessWidget {
                       ),
                     ),
                     const Spacer(),
-                    IconButton(
-                      color: Colors.white,
-                      icon: const Icon(Icons.favorite_border),
-                      onPressed: () {},
-                    )
+                    BlocBuilder<FavouriteBloc, FavouriteState>(
+                      builder: (context, state) {
+                        switch (state.status) {
+                          case FavouriteStatus.success:
+                            return IconButton(
+                              color: Colors.white,
+                              icon: const Icon(Icons.favorite_outline),
+                              onPressed: () async {
+                                BlocProvider.of<FavouriteBloc>(context)
+                                    .add(AddFavourite(dwellingDetail!.id));
+                              },
+                            );
+                          case FavouriteStatus.initial:
+                            return IconButton(
+                              color: Colors.white,
+                              icon: const Icon(Icons.favorite_outline),
+                              onPressed: () async {
+                                //
+                              },
+                            );
+                          case FavouriteStatus.failure:
+                            return IconButton(
+                              color: Colors.white,
+                              icon: const Icon(Icons.favorite),
+                              onPressed: () async {
+                                BlocProvider.of<FavouriteBloc>(context)
+                                    .add(DeleteFavourite(dwellingDetail!.id));
+                              },
+                            );
+                        }
+                      },
+                    ),
                   ],
                 ),
                 Container(
@@ -232,5 +264,9 @@ class DwellingDetailItem extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  bool _isFavorited(DwellingFavouritesState state) {
+    return state.dwellings.contains(dwellingDetail);
   }
 }

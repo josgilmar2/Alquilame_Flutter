@@ -12,6 +12,22 @@ abstract class AuthService {
   Future<UserResponse> signInWithUsernameAndPassword(
       String username, String password);
   Future<void> signOut();
+  Future<UserResponse> registerPropietario(
+      String username,
+      String email,
+      String address,
+      String phoneNumber,
+      String fullName,
+      String password,
+      String verifyPassword);
+  Future<UserResponse> registerInquilino(
+      String username,
+      String email,
+      String address,
+      String phoneNumber,
+      String fullName,
+      String password,
+      String verifyPassword);
 }
 
 @Order(2)
@@ -52,5 +68,39 @@ class JwtAuthService extends AuthService {
   Future<void> signOut() async {
     print("borrando token");
     await _localStorageService.deleteFromDisk("user_token");
+  }
+
+  @override
+  Future<UserResponse> registerInquilino(
+      String username,
+      String email,
+      String address,
+      String phoneNumber,
+      String fullName,
+      String password,
+      String verifyPassword) async {
+    UserResponse response = await _authRepository.doRegisterInquilino(username,
+        email, address, phoneNumber, fullName, password, verifyPassword);
+    return response;
+  }
+
+  @override
+  Future<UserResponse> registerPropietario(
+      String username,
+      String email,
+      String address,
+      String phoneNumber,
+      String fullName,
+      String password,
+      String verifyPassword) async {
+    UserResponse response = await _authRepository.doRegisterPropietario(
+        username,
+        email,
+        address,
+        phoneNumber,
+        fullName,
+        password,
+        verifyPassword);
+    return response;
   }
 }

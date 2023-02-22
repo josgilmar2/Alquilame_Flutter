@@ -16,10 +16,10 @@ class DwellingRepository {
     _client = getIt<RestAuthenticatedClient>();
   }
 
-  Future<List<Dwelling>> getAllDwellings(int starterIndex) async {
+  Future<AllDwellingsResponse> getAllDwellings(int starterIndex) async {
     String url = "/dwelling/?page=$starterIndex";
     var jsonResponse = await _client.get(url);
-    return AllDwellingsResponse.fromJson(jsonDecode(jsonResponse)).content;
+    return AllDwellingsResponse.fromJson(jsonDecode(jsonResponse));
   }
 
   Future<OneDwellingResponse> getOneDwelling(int id) async {
@@ -28,9 +28,20 @@ class DwellingRepository {
     return OneDwellingResponse.fromJson(jsonDecode(jsonResponse));
   }
 
-  Future<List<Dwelling>> getUserDwellings(int page) async {
+  Future<AllDwellingsResponse> getUserDwellings(int page) async {
     String url = "/dwelling/user";
     var jsonResponse = await _client.get(url);
-    return AllDwellingsResponse.fromJson(jsonDecode(jsonResponse)).content;
+    return AllDwellingsResponse.fromJson(jsonDecode(jsonResponse));
+  }
+
+  Future<OneDwellingResponse> markAsFavourite(int id) async {
+    String url = "/dwelling/$id/favourite";
+    var jsonResponse = await _client.post(url);
+    return OneDwellingResponse.fromJson(jsonDecode(jsonResponse));
+  }
+
+  Future<void> deleteFavourite(int id) async {
+    String url = "/dwelling/$id/favourite";
+    await _client.delete(url);
   }
 }

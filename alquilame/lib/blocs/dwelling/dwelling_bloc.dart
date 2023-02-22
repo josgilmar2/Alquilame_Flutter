@@ -29,25 +29,23 @@ class DwellingBloc extends Bloc<DwellingEvent, DwellingState> {
   Future<void> _onDwellingFetched(
       DwellingFetched event, Emitter<DwellingState> emitter) async {
     if (state.hasReachedMax) return;
-    page += 1;
     try {
       if (state.status == DwellingStatus.initial) {
-        final dwellings = await _dwellingService.getAllDwellings(0);
+        page = 0;
+        final dwellings = await _dwellingService.getAllDwellings(page);
         return emitter(state.copyWith(
           status: DwellingStatus.success,
-          dwellings: dwellings,
-          hasReachedMax: false,
+          dwellings: dwellings.content,
+          hasReachedMax: dwellings.totalPages - 1 <= page,
         ));
       }
+      page += 1;
       final dwellings = await _dwellingService.getAllDwellings(page);
-      emitter(dwellings.isEmpty
-          ? state.copyWith(hasReachedMax: true)
-          : state.copyWith(
-              status: DwellingStatus.success,
-              dwellings: List.of(state.dwellings)..addAll(dwellings),
-              hasReachedMax: false));
+      emitter(state.copyWith(
+          status: DwellingStatus.success,
+          dwellings: List.of(state.dwellings)..addAll(dwellings.content),
+          hasReachedMax: dwellings.totalPages - 1 <= page));
     } catch (_) {
-      page = -1;
       emitter(state.copyWith(status: DwellingStatus.failure));
     }
   }
@@ -55,36 +53,32 @@ class DwellingBloc extends Bloc<DwellingEvent, DwellingState> {
   Future<void> _onDwellingRefresh(
       DwellingRefresh event, Emitter<DwellingState> emitter) async {
     final dwellings = await _dwellingService.getAllDwellings(0);
-    return emitter(dwellings.isEmpty
-        ? state.copyWith(hasReachedMax: true)
-        : state.copyWith(
-            status: DwellingStatus.success,
-            dwellings: List.of(state.dwellings)..addAll(dwellings),
-            hasReachedMax: false));
+    return emitter(state.copyWith(
+        status: DwellingStatus.success,
+        dwellings: List.of(state.dwellings)..addAll(dwellings.content),
+        hasReachedMax: dwellings.totalPages - 1 <= page));
   }
 
   Future<void> _onDwellingUserFetched(
       DwellingUserFetched event, Emitter<DwellingState> emitter) async {
     if (state.hasReachedMax) return;
-    page += 1;
     try {
       if (state.status == DwellingStatus.initial) {
-        final dwellings = await _dwellingService.getUserDwellings(0);
+        page = 0;
+        final dwellings = await _dwellingService.getUserDwellings(page);
         return emitter(state.copyWith(
           status: DwellingStatus.success,
-          dwellings: dwellings,
-          hasReachedMax: false,
+          dwellings: dwellings.content,
+          hasReachedMax: dwellings.number - 1 <= page,
         ));
       }
+      page += 1;
       final dwellings = await _dwellingService.getUserDwellings(page);
-      emitter(dwellings.isEmpty
-          ? state.copyWith(hasReachedMax: true)
-          : state.copyWith(
-              status: DwellingStatus.success,
-              dwellings: List.of(state.dwellings)..addAll(dwellings),
-              hasReachedMax: false));
+      emitter(state.copyWith(
+          status: DwellingStatus.success,
+          dwellings: List.of(state.dwellings)..addAll(dwellings.content),
+          hasReachedMax: dwellings.number - 1 <= page));
     } catch (_) {
-      page = -1;
       emitter(state.copyWith(status: DwellingStatus.failure));
     }
   }

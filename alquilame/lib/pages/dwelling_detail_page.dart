@@ -1,4 +1,7 @@
+import 'package:alquilame/blocs/blocs.dart';
 import 'package:alquilame/blocs/dwelling_detail/dwelling_detail.dart';
+import 'package:alquilame/blocs/dwelling_favourite/dwelling_favourite.dart';
+import 'package:alquilame/blocs/dwelling_favourite/dwelling_favourites_bloc.dart';
 import 'package:alquilame/config/locator.dart';
 import 'package:alquilame/pages/pages.dart';
 import 'package:alquilame/services/services.dart';
@@ -13,12 +16,27 @@ class DwellingDetailPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: BlocProvider(
-        create: (context) {
-          final dwellingService = getIt<DwellingService>();
-          return DwellingDetailBloc(dwellingService)
-            ..add(DwellingDetailFetched(id));
-        },
+      body: MultiBlocProvider(
+        providers: [
+          BlocProvider(create: (context) {
+            final dwellingService = getIt<DwellingService>();
+            return DwellingDetailBloc(dwellingService)
+              ..add(DwellingDetailFetched(id));
+          }),
+          BlocProvider(
+            create: (context) {
+              final dwellingService = getIt<DwellingService>();
+              return FavouriteBloc(dwellingService)..add(AddFavourite(id));
+            },
+          ),
+          BlocProvider(
+            create: (context) {
+              final userService = getIt<UserService>();
+              return DwellingFavouritesBloc(userService)
+                ..add(DwellingFavouritesFetched());
+            },
+          )
+        ],
         child: const DwellingsDetail(),
       ),
     );

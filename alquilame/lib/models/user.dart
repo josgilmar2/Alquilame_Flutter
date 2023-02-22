@@ -1,5 +1,33 @@
 import 'package:alquilame/models/login.dart';
 
+class AllUserResponse {
+  List<UserResponse>? content;
+  int? totalElements;
+  int? totalPages;
+  int? number;
+  int? size;
+
+  AllUserResponse(
+      {this.content,
+      this.totalElements,
+      this.totalPages,
+      this.number,
+      this.size});
+
+  AllUserResponse.fromJson(Map<String, dynamic> json) {
+    if (json['content'] != null) {
+      content = <UserResponse>[];
+      json['content'].forEach((v) {
+        content!.add(new UserResponse.fromJson(v));
+      });
+    }
+    totalElements = json['totalElements'];
+    totalPages = json['totalPages'];
+    number = json['number'];
+    size = json['size'];
+  }
+}
+
 class UserResponse {
   String? id;
   String? username;
@@ -10,7 +38,6 @@ class UserResponse {
   String? phoneNumber;
   String? role;
   int? numPublications;
-  int? numLiked;
   String? createdAt;
 
   UserResponse(
@@ -23,7 +50,6 @@ class UserResponse {
       this.phoneNumber,
       this.role,
       this.numPublications,
-      this.numLiked,
       this.createdAt});
 
   UserResponse.fromJson(Map<String, dynamic> json) {
@@ -36,7 +62,6 @@ class UserResponse {
     phoneNumber = json['phoneNumber'];
     role = json['role'];
     numPublications = json['numPublications'];
-    numLiked = json['numLiked'];
     createdAt = json['createdAt'];
   }
 
@@ -51,7 +76,6 @@ class UserResponse {
     data['phoneNumber'] = this.phoneNumber;
     data['role'] = this.role;
     data['numPublications'] = this.numPublications;
-    data['numLiked'] = this.numLiked;
     data['createdAt'] = this.createdAt;
     return data;
   }
@@ -65,5 +89,46 @@ class UserResponse {
     this.email = response.email;
     this.phoneNumber = response.phoneNumber;
     this.numPublications = response.numPublications;
+  }
+}
+
+class UserRequest {
+  String? username;
+  String? email;
+  String? address;
+  String? phoneNumber;
+  String? fullName;
+  String? password;
+  String? verifyPassword;
+
+  UserRequest(
+      {this.username,
+      this.email,
+      this.address,
+      this.phoneNumber,
+      this.fullName,
+      this.password,
+      this.verifyPassword});
+
+  UserRequest.fromJson(Map<String, dynamic> json) {
+    username = json['username'];
+    email = json['email'];
+    address = json['address'];
+    phoneNumber = json['phoneNumber'];
+    fullName = json['fullName'];
+    password = json['password'];
+    verifyPassword = json['verifyPassword'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['username'] = this.username;
+    data['email'] = this.email;
+    data['address'] = this.address;
+    data['phoneNumber'] = this.phoneNumber;
+    data['fullName'] = this.fullName;
+    data['password'] = this.password;
+    data['verifyPassword'] = this.verifyPassword;
+    return data;
   }
 }
