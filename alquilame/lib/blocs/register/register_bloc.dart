@@ -44,7 +44,7 @@ class RegisterBloc extends FormBloc<String, String> {
       emitSuccess();
     } else if (state.currentStep == 1) {
       if (password.value != verifyPassword.value) {
-        password.addFieldError("LAs contraseñas no coinciden");
+        password.addFieldError("Las contraseñas no coinciden");
         verifyPassword.addFieldError("Las contraseñas no coinciden");
         emitFailure();
       } else {

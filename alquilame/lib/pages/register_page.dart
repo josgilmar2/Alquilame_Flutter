@@ -35,7 +35,9 @@ class _RegisterPageState extends State<RegisterPage> {
                   onSubmitting: (context, state) =>
                       RegisterDialog.show(context),
                   onSubmissionFailed: (context, state) =>
-                      RegisterDialog.hide(context),
+                      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                          content: Text(
+                              "Hay un error al la hora de crear el usuario"))),
                   onSuccess: (context, state) {
                     RegisterDialog.hide(context);
                     if (state.stepCompleted == state.lastStep) {
@@ -44,7 +46,14 @@ class _RegisterPageState extends State<RegisterPage> {
                       ));
                     }
                   },
-                  onFailure: (context, state) => RegisterDialog.hide(context),
+                  onFailure: (context, state) {
+                    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                      content: Text(
+                          "Hay un error al la hora de crear el usuario. Puede ser que el username, el email o el teléfono ya estén registrados, el teléfono no tiene 9 números, la contraseña no tenga al menos 8 o más caracteres, una mayúscula, una minúscula, un número y un signo de puntuación"),
+                      duration: Duration(seconds: 6),
+                    ));
+                    RegisterDialog.hide(context);
+                  },
                   child: StepperFormBlocBuilder<RegisterBloc>(
                       formBloc: context.read<RegisterBloc>(),
                       type: StepperType.horizontal,
@@ -129,13 +138,13 @@ class _RegisterPageState extends State<RegisterPage> {
               keyboardType: TextInputType.name,
             ),
             TextFieldBlocBuilder(
-              decoration: const InputDecoration(
-                label: Text('Password'),
-                prefixIcon: Icon(Icons.fingerprint),
-              ),
-              textFieldBloc: registerBloc.password,
-              keyboardType: TextInputType.visiblePassword,
-            ),
+                decoration: const InputDecoration(
+                  label: Text('Password'),
+                  prefixIcon: Icon(Icons.fingerprint),
+                ),
+                textFieldBloc: registerBloc.password,
+                keyboardType: TextInputType.visiblePassword,
+                suffixButton: SuffixButton.obscureText),
             TextFieldBlocBuilder(
               decoration: const InputDecoration(
                 label: Text('Verify Password'),
@@ -143,6 +152,7 @@ class _RegisterPageState extends State<RegisterPage> {
               ),
               textFieldBloc: registerBloc.verifyPassword,
               keyboardType: TextInputType.visiblePassword,
+              suffixButton: SuffixButton.obscureText,
             ),
           ],
         ));

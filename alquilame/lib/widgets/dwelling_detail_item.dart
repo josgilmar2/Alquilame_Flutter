@@ -21,7 +21,9 @@ class DwellingDetailItem extends StatelessWidget {
               foregroundDecoration: BoxDecoration(color: Colors.black26),
               height: 400,
               child: Image.network(
-                  "http://localhost:8080/download/${dwellingDetail?.image}",
+                  dwellingDetail?.image == null
+                      ? "https://areajugones.sport.es/wp-content/uploads/2020/12/zoneri-021-headquarters-garrison.jpg"
+                      : "http://localhost:8080/download/${dwellingDetail?.image}",
                   fit: BoxFit.cover)),
           SingleChildScrollView(
             padding: const EdgeInsets.only(top: 16.0, bottom: 20.0),
@@ -199,7 +201,17 @@ class DwellingDetailItem extends StatelessWidget {
                                 "${dwellingDetail?.m2} m²",
                                 style: const TextStyle(
                                     fontSize: 12, color: Colors.grey),
-                              )
+                              ),
+                              Text(
+                                "${dwellingDetail?.numBedrooms} habitaciones",
+                                style: const TextStyle(
+                                    fontSize: 12, color: Colors.grey),
+                              ),
+                              Text(
+                                "${dwellingDetail?.numBathrooms} baños",
+                                style: const TextStyle(
+                                    fontSize: 12, color: Colors.grey),
+                              ),
                             ],
                           )
                         ],

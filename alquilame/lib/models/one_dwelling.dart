@@ -109,3 +109,68 @@ class Owner {
     return data;
   }
 }
+
+class DwellingRequest {
+  String? name;
+  String? address;
+  String? description;
+  String? type;
+  double? price;
+  double? m2;
+  int? numBedrooms;
+  int? numBathrooms;
+  bool? hasElevator;
+  bool? hasPool;
+  bool? hasTerrace;
+  bool? hasGarage;
+  String? provinceName;
+
+  DwellingRequest(
+      {this.name,
+      this.address,
+      this.description,
+      this.type,
+      this.price,
+      this.m2,
+      this.numBedrooms,
+      this.numBathrooms,
+      this.hasElevator,
+      this.hasPool,
+      this.hasTerrace,
+      this.hasGarage,
+      this.provinceName});
+
+  DwellingRequest.fromJson(Map<String, dynamic> json) {
+    name = json['name'];
+    address = json['address'];
+    description = json['description'];
+    type = json['type'];
+    price = json['price'];
+    m2 = json['m2'];
+    numBedrooms = json['numBedrooms'];
+    numBathrooms = json['numBathrooms'];
+    hasElevator = json['hasElevator'];
+    hasPool = json['hasPool'];
+    hasTerrace = json['hasTerrace'];
+    hasGarage = json['hasGarage'];
+    provinceName = json['provinceName'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['name'] = this.name;
+    data['address'] = this.address;
+    data['description'] = this.description;
+    data['type'] = this.type;
+    data['price'] = this.price;
+    data['m2'] = this.m2;
+    data['numBedrooms'] = this.numBedrooms;
+    data['numBathrooms'] = this.numBathrooms;
+    data['hasElevator'] = this.hasElevator;
+    data['hasPool'] = this.hasPool;
+    data['hasTerrace'] = this.hasTerrace;
+    data['hasGarage'] = this.hasGarage;
+    data['provinceName'] = this.provinceName;
+    return data;
+  }
+}

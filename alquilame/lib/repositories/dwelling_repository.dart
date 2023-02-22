@@ -44,4 +44,38 @@ class DwellingRepository {
     String url = "/dwelling/$id/favourite";
     await _client.delete(url);
   }
+
+  Future<OneDwellingResponse> createDwelling(
+      String name,
+      String address,
+      String description,
+      String type,
+      double price,
+      double m2,
+      int numBedrooms,
+      int numBathrooms,
+      bool hasElevator,
+      bool hasPool,
+      bool hasTerrace,
+      bool hasGarage,
+      String provinceName) async {
+    String url = "/dwelling/";
+    var jsonResponse = await _client.post(
+        url,
+        DwellingRequest(
+            name: name,
+            address: address,
+            description: description,
+            type: type,
+            price: price,
+            m2: m2,
+            numBedrooms: numBedrooms,
+            numBathrooms: numBathrooms,
+            hasElevator: hasElevator,
+            hasPool: hasPool,
+            hasTerrace: hasTerrace,
+            hasGarage: hasGarage,
+            provinceName: provinceName));
+    return OneDwellingResponse.fromJson(jsonDecode(jsonResponse));
+  }
 }

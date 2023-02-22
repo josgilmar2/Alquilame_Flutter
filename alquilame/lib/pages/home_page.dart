@@ -21,55 +21,31 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    if (widget.user.role == "PROPIETARIO") {
-      return Scaffold(
-        appBar: AppBar(
-          title: const Text("Alquilame"),
-          backgroundColor: Colors.black87,
-        ),
-        body: _buildBody(_selectedIndex),
-        bottomNavigationBar: BottomNavigationBar(
-          items: const <BottomNavigationBarItem>[
-            BottomNavigationBarItem(
-              icon: Icon(Icons.person),
-              label: 'Mi Perfil',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.home),
-              label: 'Viviendas',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.add),
-              label: 'Añadir',
-            ),
-          ],
-          currentIndex: _selectedIndex,
-          onTap: (index) => setState(() => _selectedIndex = index),
-        ),
-      );
-    } else {
-      return Scaffold(
-        appBar: AppBar(
-          title: const Text("Alquilame"),
-          backgroundColor: Colors.black87,
-        ),
-        body: _buildBody(_selectedIndex),
-        bottomNavigationBar: BottomNavigationBar(
-          items: const <BottomNavigationBarItem>[
-            BottomNavigationBarItem(
-              icon: Icon(Icons.person),
-              label: 'Mi Perfil',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.home),
-              label: 'Viviendas',
-            ),
-          ],
-          currentIndex: _selectedIndex,
-          onTap: (index) => setState(() => _selectedIndex = index),
-        ),
-      );
-    }
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text("Alquilame"),
+        backgroundColor: Colors.black87,
+      ),
+      body: _buildBody(_selectedIndex),
+      bottomNavigationBar: BottomNavigationBar(
+        items: const <BottomNavigationBarItem>[
+          BottomNavigationBarItem(
+            icon: Icon(Icons.person),
+            label: 'Mi Perfil',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            label: 'Viviendas',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.add),
+            label: 'Añadir',
+          ),
+        ],
+        currentIndex: _selectedIndex,
+        onTap: (index) => setState(() => _selectedIndex = index),
+      ),
+    );
   }
 
   Widget _buildBody(int index) {
@@ -160,23 +136,17 @@ class _HomePageState extends State<HomePage> {
           child: const DwellingList(),
         );
       case 2:
-        if (widget.user.role == "PROPIETARIO") {
-          return const Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                Text(
-                  'Configuración',
-                  style: TextStyle(fontSize: 24),
-                ),
-              ],
-            ),
-          );
-        } else {
-          return const Center(
-            child: Text("Hola"),
-          );
-        }
+        return const Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              Text(
+                'Configuración',
+                style: TextStyle(fontSize: 24),
+              ),
+            ],
+          ),
+        );
 
       default:
         throw Exception('Invalid index: $index');
