@@ -4,7 +4,7 @@
 
 <p align="center">
   <a href="https://dart.dev/"><img src="https://img.shields.io/badge/dart-v3.0.0-blue" alt="Versión dart" /></a>
-  <a href="https://flutter.dev/"><img src="https://img.shields.io/badge/flutter-v3.8.0-13.0.pre.95-blue" alt="Versión flutter" /></a>
+  <a href="https://flutter.dev/"><img src="https://img.shields.io/badge/flutter-3.8.0--13.0.pre.95-blue" alt="Versión flutter" /></a>
   <img src="https://img.shields.io/badge/release%20date-february-yellowgreen" alt="Lanzamiento del proyecto" />
   <img src="https://img.shields.io/badge/license-MIT-brightgreen" alt="Licencia" />
 </p>
