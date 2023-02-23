@@ -43,6 +43,7 @@ Dependiendo del sistema operativo de tu ordenador habrá dos formas de poner en 
 flutter run -d windows
 ```
 Y se te abrirá la aplicación en windows
+
 2. **MacOS**: en este caso necesitarás descargarte el [Xcode](https://apps.apple.com/es/app/xcode/id497799835?mt=12). Una vez descargado y puesto en marcha dentro del Visual Studio Code escribe en consola lo siguiente para abrir el simulador de móvil:
 ```console
 open -a Simulator
