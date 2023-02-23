@@ -40,15 +40,23 @@ class UserService {
 
   Future<UserResponse> editPassword(
       String oldPassword, String newPassword, String verifyNewPassword) async {
-    UserResponse response = await _userRepository.editPassword(
-        oldPassword, newPassword, verifyNewPassword);
-    return response;
+    String? token = _localStorageService.getFromDisk("user_token");
+    if (token != null) {
+      UserResponse response = await _userRepository.editPassword(
+          oldPassword, newPassword, verifyNewPassword);
+      return response;
+    }
+    throw Exception("Failed to edit password");
   }
 
   Future<UserResponse> editProfile(
       String address, String phoneNumber, String fullName) async {
-    UserResponse response =
-        await _userRepository.editProfile(address, phoneNumber, fullName);
-    return response;
+    String? token = _localStorageService.getFromDisk("user_token");
+    if (token != null) {
+      UserResponse response =
+          await _userRepository.editProfile(address, phoneNumber, fullName);
+      return response;
+    }
+    throw Exception("Failed to edit profile");
   }
 }

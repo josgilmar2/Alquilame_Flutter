@@ -69,6 +69,10 @@ class DwellingDetailItem extends StatelessWidget {
                               onPressed: () async {
                                 BlocProvider.of<FavouriteBloc>(context)
                                     .add(AddFavourite(dwellingDetail!.id));
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                    const SnackBar(
+                                        content: Text(
+                                            "Se ha añadidio correctamente a tu lista de favoritos. Para comprobarlo, entra en tu lista de favoritos en tu perfil.")));
                               },
                             );
                           case FavouriteStatus.initial:

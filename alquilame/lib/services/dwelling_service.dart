@@ -60,7 +60,11 @@ class DwellingService {
   }
 
   Future<void> deleteFavourite(int id) async {
-    return _dwellingRepository.deleteFavourite(id);
+    String? token = _localStorageService.getFromDisk("user_token");
+    if (token != null) {
+      return _dwellingRepository.deleteFavourite(id);
+    }
+    throw Exception("Failed to delete favourite");
   }
 
   Future<OneDwellingResponse> createDwelling(
@@ -77,24 +81,32 @@ class DwellingService {
       bool hasTerrace,
       bool hasGarage,
       String provinceName) async {
-    OneDwellingResponse response = await _dwellingRepository.createDwelling(
-        name,
-        address,
-        description,
-        type,
-        price,
-        m2,
-        numBedrooms,
-        numBathrooms,
-        hasElevator,
-        hasPool,
-        hasTerrace,
-        hasGarage,
-        provinceName);
-    return response;
+    String? token = _localStorageService.getFromDisk("user_token");
+    if (token != null) {
+      OneDwellingResponse response = await _dwellingRepository.createDwelling(
+          name,
+          address,
+          description,
+          type,
+          price,
+          m2,
+          numBedrooms,
+          numBathrooms,
+          hasElevator,
+          hasPool,
+          hasTerrace,
+          hasGarage,
+          provinceName);
+      return response;
+    }
+    throw Exception("Failed to create dwelling");
   }
 
   Future<void> deleteDwelling(int id) async {
-    return _dwellingRepository.deleteDwelling(id);
+    String? token = _localStorageService.getFromDisk("user_token");
+    if (token != null) {
+      return _dwellingRepository.deleteDwelling(id);
+    }
+    throw Exception("Failed to delete dwelling");
   }
 }

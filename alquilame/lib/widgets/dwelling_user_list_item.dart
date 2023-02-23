@@ -6,7 +6,7 @@ import 'package:alquilame/pages/dwelling_user_list_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_bloc/flutter_form_bloc.dart';
 
-/*class DwellingUserListItem extends StatefulWidget {
+class DwellingUserListItem extends StatefulWidget {
   final Dwelling dwelling;
   final DwellingBloc dwellingBloc;
 
@@ -89,17 +89,17 @@ class _DwellingUserListItemState extends State<DwellingUserListItem> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text('¿Eliminar esta propiedad?'),
-          content: Text('Esta acción no se puede deshacer.'),
+          title: const Text('¿Quiéres eliminar esta vivienda de tu lista?'),
+          content: const Text('Recuerda que esta acción no se puede deshacer.'),
           actions: <Widget>[
             TextButton(
-              child: Text('CANCELAR'),
+              child: const Text('CANCELAR'),
               onPressed: () {
                 Navigator.of(context).pop();
               },
             ),
             TextButton(
-              child: Text('ELIMINAR'),
+              child: const Text('ELIMINAR'),
               onPressed: () async {
                 setState(() {
                   _isDeleting = true;
@@ -112,6 +112,9 @@ class _DwellingUserListItemState extends State<DwellingUserListItem> {
                 });
 
                 Navigator.of(context).pop();
+                ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                    content: Text(
+                        "Se ha eliminado correctamente la vivienda de tu lista. Para comprobarlo sal de la lista y vuelve a entrar")));
               },
             ),
           ],
@@ -119,9 +122,9 @@ class _DwellingUserListItemState extends State<DwellingUserListItem> {
       },
     );
   }
-}*/
+}
 
-class DwellingUserListItem extends StatelessWidget {
+/*class DwellingUserListItem extends StatelessWidget {
   final Dwelling dwelling;
   final DwellingBloc dwellingBloc;
 
@@ -196,4 +199,4 @@ class DwellingUserListItem extends StatelessWidget {
       ),
     );
   }
-}
+}*/

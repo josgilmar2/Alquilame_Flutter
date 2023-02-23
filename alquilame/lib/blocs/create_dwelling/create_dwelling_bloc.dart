@@ -9,7 +9,7 @@ class CreateDwellingBloc extends FormBloc<String, String> {
 
   final address = TextFieldBloc(validators: [FieldBlocValidators.required]);
 
-  final description = TextFieldBloc();
+  final description = TextFieldBloc(validators: [FieldBlocValidators.required]);
 
   final type = SelectFieldBloc(
     validators: [FieldBlocValidators.required],
@@ -112,7 +112,7 @@ class CreateDwellingBloc extends FormBloc<String, String> {
   @override
   Future<void> onSubmitting() async {
     try {
-      final response = await _dwellingService.createDwelling(
+      await _dwellingService.createDwelling(
           name.value,
           address.value,
           description.value,

@@ -1,4 +1,5 @@
 import 'package:alquilame/blocs/create_dwelling/create_dwelling_bloc.dart';
+import 'package:alquilame/models/user.dart';
 import 'package:alquilame/pages/dwelling_list.dart';
 import 'package:alquilame/pages/pages.dart';
 import 'package:flutter/material.dart';
@@ -33,6 +34,8 @@ class _CreateDwellingPageState extends State<CreateDwellingPage> {
                 child: FormBlocListener<CreateDwellingBloc, String, String>(
                   onSubmitting: (context, state) =>
                       CreateDwellingDialog.show(context),
+                  onSubmissionFailed: (context, state) =>
+                      CreateDwellingDialog.hide(context),
                   onSuccess: (context, state) {
                     CreateDwellingDialog.hide(context);
                     Navigator.of(context).pushReplacement(MaterialPageRoute(
@@ -43,7 +46,7 @@ class _CreateDwellingPageState extends State<CreateDwellingPage> {
                     ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
                       content: Text(
                           "Hay un error a la hora de registrar la vivienda ya qe el precio debe ser mayor o igual a 100€ los m2 mayores o iguales a 30, el número de habitaciones y baño mayor o igual a 1"),
-                      duration: Duration(seconds: 8),
+                      duration: Duration(seconds: 5),
                     ));
                     CreateDwellingDialog.hide(context);
                   },

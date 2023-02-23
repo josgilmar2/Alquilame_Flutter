@@ -2,7 +2,7 @@ class OneDwellingResponse {
   late final int id;
   late final String name;
   late final String province;
-  late final String image;
+  String? image;
   late final double price;
   late final String address;
   late final String description;
@@ -20,7 +20,7 @@ class OneDwellingResponse {
       {required this.id,
       required this.name,
       required this.province,
-      required this.image,
+      this.image,
       required this.price,
       required this.address,
       required this.description,
