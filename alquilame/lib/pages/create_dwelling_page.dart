@@ -1,7 +1,4 @@
 import 'package:alquilame/blocs/create_dwelling/create_dwelling_bloc.dart';
-import 'package:alquilame/models/user.dart';
-import 'package:alquilame/pages/dwelling_list.dart';
-import 'package:alquilame/pages/pages.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_bloc/flutter_form_bloc.dart';
 
@@ -28,6 +25,10 @@ class _CreateDwellingPageState extends State<CreateDwellingPage> {
               )),
             ),
             child: Scaffold(
+              appBar: AppBar(
+                title: const Text("Registro de vivienda"),
+                backgroundColor: Colors.black87,
+              ),
               resizeToAvoidBottomInset: false,
               backgroundColor: Colors.grey[300],
               body: SafeArea(
@@ -38,15 +39,13 @@ class _CreateDwellingPageState extends State<CreateDwellingPage> {
                       CreateDwellingDialog.hide(context),
                   onSuccess: (context, state) {
                     CreateDwellingDialog.hide(context);
-                    Navigator.of(context).pushReplacement(MaterialPageRoute(
-                      builder: (context) => const DwellingList(),
-                    ));
+                    Navigator.of(context).pop();
                   },
                   onFailure: (context, state) {
                     ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
                       content: Text(
-                          "Hay un error a la hora de registrar la vivienda ya qe el precio debe ser mayor o igual a 100€ los m2 mayores o iguales a 30, el número de habitaciones y baño mayor o igual a 1"),
-                      duration: Duration(seconds: 5),
+                          "Recuerda que el precio debe ser mayor o igual a 100€, los m² mayores o igula a 30 y tanto el número de habitaciones como el debaños mayor o igual a 1. Si eres inquilino no puedes registrar viviendas"),
+                      duration: Duration(seconds: 7),
                     ));
                     CreateDwellingDialog.hide(context);
                   },
@@ -108,6 +107,22 @@ class _CreateDwellingPageState extends State<CreateDwellingPage> {
                           textFieldBloc: createDwellingBloc.m2,
                           keyboardType: TextInputType.number,
                         ),
+                        TextFieldBlocBuilder(
+                          decoration: const InputDecoration(
+                            label: Text("Dwelling's number of bedrooms"),
+                            prefixIcon: Icon(Icons.bed_outlined),
+                          ),
+                          textFieldBloc: createDwellingBloc.numBedrooms,
+                          keyboardType: TextInputType.number,
+                        ),
+                        TextFieldBlocBuilder(
+                          decoration: const InputDecoration(
+                            label: Text("Dwelling's number of bathrooms"),
+                            prefixIcon: Icon(Icons.wc_outlined),
+                          ),
+                          textFieldBloc: createDwellingBloc.numBathrooms,
+                          keyboardType: TextInputType.number,
+                        ),
                         CheckboxFieldBlocBuilder(
                           booleanFieldBloc: createDwellingBloc.hasElevator,
                           body: Container(
@@ -146,6 +161,9 @@ class _CreateDwellingPageState extends State<CreateDwellingPage> {
                         ),
                         ElevatedButton(
                           onPressed: createDwellingBloc.submit,
+                          style: const ButtonStyle(
+                              backgroundColor:
+                                  MaterialStatePropertyAll(Colors.black87)),
                           child: const Text("REGISTRAR"),
                         )
                       ],

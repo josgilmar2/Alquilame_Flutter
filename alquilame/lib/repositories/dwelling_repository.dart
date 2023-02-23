@@ -29,7 +29,7 @@ class DwellingRepository {
   }
 
   Future<AllDwellingsResponse> getUserDwellings(int page) async {
-    String url = "/dwelling/user";
+    String url = "/dwelling/user?page=$page";
     var jsonResponse = await _client.get(url);
     return AllDwellingsResponse.fromJson(jsonDecode(jsonResponse));
   }

@@ -37,6 +37,9 @@ class _DwellingListState extends State<DwellingList> {
                   onPressed: () {
                     context.read<DwellingBloc>().add(DwellingRefresh());
                   },
+                  style: const ButtonStyle(
+                      backgroundColor:
+                          MaterialStatePropertyAll(Colors.black87)),
                   child: const Text('Try again'),
                 ),
               ],

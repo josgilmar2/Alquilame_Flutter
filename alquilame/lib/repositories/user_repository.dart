@@ -30,11 +30,11 @@ class UserRepository {
     return AllDwellingsResponse.fromJson(jsonDecode(jsonResponse));
   }
 
-  Future<List<UserResponse>?> getAllUsers(int page) async {
-    String url = "/user/";
+  Future<AllUserResponse> getAllUsers(int page) async {
+    String url = "/user/?page=$page";
 
     var jsonResponse = await _client.get(url);
-    return AllUserResponse.fromJson(jsonDecode(jsonResponse)).content;
+    return AllUserResponse.fromJson(jsonDecode(jsonResponse));
   }
 
   Future<UserResponse> editPassword(
@@ -59,5 +59,11 @@ class UserRepository {
         EditProfileRequest(
             address: address, phoneNumber: phoneNumber, fullName: fullName));
     return UserResponse.fromJson(jsonDecode(jsonResponse));
+  }
+
+  Future<void> deleteProfile() async {
+    String url = "/user/delete";
+
+    await _client.delete(url);
   }
 }

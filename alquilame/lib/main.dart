@@ -1,4 +1,5 @@
 import 'package:alquilame/blocs/blocs.dart';
+import 'package:alquilame/blocs/user/user.dart';
 import 'package:alquilame/config/locator.dart';
 import 'package:alquilame/pages/pages.dart';
 import 'package:alquilame/services/services.dart';
@@ -10,11 +11,21 @@ void main() {
   configureDependencies();
 
   runApp(
-    BlocProvider<AuthBloc>(
-      create: (context) {
-        final authService = getIt<JwtAuthService>();
-        return AuthBloc(authService)..add(AppLoaded());
-      },
+    MultiBlocProvider(
+      providers: [
+        BlocProvider<AuthBloc>(
+          create: (context) {
+            final authService = getIt<JwtAuthService>();
+            return AuthBloc(authService)..add(AppLoaded());
+          },
+        ),
+        BlocProvider<UserBloc>(
+          create: (context) {
+            final userService = getIt<UserService>();
+            return UserBloc(userService)..add(UserDelete());
+          },
+        )
+      ],
       child: MyApp(),
     ),
   );
@@ -45,6 +56,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Authentication Demo',
       color: Colors.black,
+      debugShowCheckedModeBanner: false,
       home: BlocBuilder<AuthBloc, AuthState>(
         builder: (context, state) {
           GlobalContext.ctx = context;

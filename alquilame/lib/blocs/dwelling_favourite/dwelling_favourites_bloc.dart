@@ -5,7 +5,7 @@ import 'package:bloc_concurrency/bloc_concurrency.dart';
 import 'package:stream_transform/stream_transform.dart';
 
 const throttleDuration = Duration(milliseconds: 100);
-int page = -1;
+int page = 0;
 
 EventTransformer<E> throttleDroppable<E>(Duration duration) {
   return (events, mapper) {

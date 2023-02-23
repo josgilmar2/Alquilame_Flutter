@@ -89,6 +89,7 @@ class UserResponse {
     this.email = response.email;
     this.phoneNumber = response.phoneNumber;
     this.numPublications = response.numPublications;
+    this.role = response.role;
   }
 }
 

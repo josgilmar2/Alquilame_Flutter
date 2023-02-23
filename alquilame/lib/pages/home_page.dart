@@ -1,5 +1,7 @@
 import 'package:alquilame/blocs/blocs.dart';
 import 'package:alquilame/blocs/create_dwelling/create_dwelling_bloc.dart';
+import 'package:alquilame/blocs/user/user_bloc.dart';
+import 'package:alquilame/blocs/user/user_event.dart';
 import 'package:alquilame/config/locator.dart';
 import 'package:alquilame/models/models.dart';
 import 'package:alquilame/pages/create_dwelling_page.dart';
@@ -8,6 +10,8 @@ import 'package:alquilame/pages/dwelling_user_list_page.dart';
 import 'package:alquilame/pages/edit_password_page.dart';
 import 'package:alquilame/pages/edit_profile_page.dart';
 import 'package:alquilame/pages/pages.dart';
+import 'package:alquilame/pages/register_page.dart';
+import 'package:alquilame/pages/user_eliminated_page.dart';
 import 'package:alquilame/services/services.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -140,6 +144,14 @@ class _HomePageState extends State<HomePage> {
                     },
                     textColor: Colors.red,
                   ),
+                  ProfileList(
+                    title: "Eliminar perfil",
+                    iconData: Icons.delete_forever_outlined,
+                    onPress: () async {
+                      BlocProvider.of<UserBloc>(context).add(UserDelete());
+                    },
+                    textColor: Colors.red,
+                  )
                 ],
               ),
             ),
@@ -154,8 +166,25 @@ class _HomePageState extends State<HomePage> {
           child: const DwellingList(),
         );
       case 2:
-        return const CreateDwellingPage();
-
+        if (widget.user.role == "PROPIETARIO") {
+          return Center(
+            child: ElevatedButton(
+              onPressed: () {
+                Navigator.of(context).push(MaterialPageRoute(
+                  builder: (context) => const CreateDwellingPage(),
+                ));
+              },
+              style: const ButtonStyle(
+                  backgroundColor: MaterialStatePropertyAll(Colors.black87)),
+              child: const Text("Ir al formulario de registro"),
+            ),
+          );
+        } else {
+          return const Center(
+            child: Text(
+                "No puedes acceder al formulario de registro porque te registraste como inquilino."),
+          );
+        }
       default:
         throw Exception('Invalid index: $index');
     }

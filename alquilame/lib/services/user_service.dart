@@ -29,13 +29,13 @@ class UserService {
     throw Exception("Failed to load user favourite dwellings");
   }
 
-  Future<List<UserResponse>?> getAllUsers(int page) async {
+  Future<AllUserResponse> getAllUsers(int page) async {
     String? token = _localStorageService.getFromDisk("user_token");
     if (token != null) {
-      List<UserResponse>? response = await _userRepository.getAllUsers(page);
+      AllUserResponse response = await _userRepository.getAllUsers(page);
       return response;
     }
-    return null;
+    throw Exception("Failed to get all users");
   }
 
   Future<UserResponse> editPassword(
@@ -58,5 +58,14 @@ class UserService {
       return response;
     }
     throw Exception("Failed to edit profile");
+  }
+
+  Future<void> deleteProfile() async {
+    String? token = _localStorageService.getFromDisk("user_token");
+    if (token != null) {
+      await _localStorageService.deleteFromDisk("user_token");
+      await _userRepository.deleteProfile();
+    }
+    throw Exception("Failed to delete user");
   }
 }
