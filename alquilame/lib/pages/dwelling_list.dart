@@ -58,6 +58,8 @@ class _DwellingListState extends State<DwellingList> {
             );
           case DwellingStatus.initial:
             return const Center(child: CircularProgressIndicator());
+          case DwellingStatus.delete:
+            return const Center(child: CircularProgressIndicator());
         }
       },
     );

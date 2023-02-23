@@ -78,4 +78,9 @@ class DwellingRepository {
             provinceName: provinceName));
     return OneDwellingResponse.fromJson(jsonDecode(jsonResponse));
   }
+
+  Future<void> deleteDwelling(int id) async {
+    String url = "/dwelling/$id";
+    await _client.delete(url);
+  }
 }

@@ -36,4 +36,28 @@ class UserRepository {
     var jsonResponse = await _client.get(url);
     return AllUserResponse.fromJson(jsonDecode(jsonResponse)).content;
   }
+
+  Future<UserResponse> editPassword(
+      String oldPassword, String newPassword, String verifyNewPassword) async {
+    String url = "/user/changePassword";
+
+    var jsonResponse = await _client.put(
+        url,
+        EditPasswordRequest(
+            oldPassword: oldPassword,
+            newPassword: newPassword,
+            verifyNewPassword: verifyNewPassword));
+    return UserResponse.fromJson(jsonDecode(jsonResponse));
+  }
+
+  Future<UserResponse> editProfile(
+      String address, String phoneNumber, String fullName) async {
+    String url = "/user/";
+
+    var jsonResponse = await _client.put(
+        url,
+        EditProfileRequest(
+            address: address, phoneNumber: phoneNumber, fullName: fullName));
+    return UserResponse.fromJson(jsonDecode(jsonResponse));
+  }
 }

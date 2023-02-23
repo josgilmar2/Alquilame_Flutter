@@ -1,3 +1,7 @@
+import 'package:alquilame/config/locator.dart';
+import 'package:alquilame/pages/pages.dart';
+import 'package:alquilame/services/dwelling_service.dart';
+import 'package:alquilame/widgets/dwelling_user_list_item.dart';
 import 'package:alquilame/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -42,7 +46,10 @@ class _DwellingUserListState extends State<DwellingUserList> {
               itemBuilder: (BuildContext context, int index) {
                 return index >= state.dwellings.length
                     ? const CircularProgressIndicator()
-                    : DwellingListItem(dwelling: state.dwellings[index]);
+                    : DwellingUserListItem(
+                        dwelling: state.dwellings[index],
+                        dwellingBloc: DwellingBloc(getIt<DwellingService>()),
+                      );
               },
               itemCount: state.hasReachedMax
                   ? state.dwellings.length
@@ -51,6 +58,8 @@ class _DwellingUserListState extends State<DwellingUserList> {
             );
           case DwellingStatus.initial:
             return const Center(child: CircularProgressIndicator());
+          case DwellingStatus.delete:
+            return const DwellingList();
         }
       },
     );

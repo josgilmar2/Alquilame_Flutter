@@ -1,8 +1,12 @@
 import 'package:alquilame/blocs/blocs.dart';
+import 'package:alquilame/blocs/create_dwelling/create_dwelling_bloc.dart';
 import 'package:alquilame/config/locator.dart';
 import 'package:alquilame/models/models.dart';
+import 'package:alquilame/pages/create_dwelling_page.dart';
 import 'package:alquilame/pages/dwelling_favourites_list_page.dart';
 import 'package:alquilame/pages/dwelling_user_list_page.dart';
+import 'package:alquilame/pages/edit_password_page.dart';
+import 'package:alquilame/pages/edit_profile_page.dart';
 import 'package:alquilame/pages/pages.dart';
 import 'package:alquilame/services/services.dart';
 import 'package:flutter/material.dart';
@@ -77,7 +81,11 @@ class _HomePageState extends State<HomePage> {
                     width: 200,
                     child: ElevatedButton(
                       onPressed: () {
-                        //Petición editar sin contraseña
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const EditProfilePage(),
+                            ));
                       },
                       style: ElevatedButton.styleFrom(
                           backgroundColor: Colors.black,
@@ -115,13 +123,23 @@ class _HomePageState extends State<HomePage> {
                             ));
                       }),
                   ProfileList(
+                      title: "Editar Contraseña",
+                      iconData: Icons.fingerprint,
+                      onPress: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const EditPasswordPage(),
+                            ));
+                      }),
+                  ProfileList(
                     title: "Logout",
                     iconData: Icons.logout,
                     onPress: () async {
                       BlocProvider.of<AuthBloc>(context).add(UserLoggedOut());
                     },
                     textColor: Colors.red,
-                  )
+                  ),
                 ],
               ),
             ),
@@ -136,17 +154,7 @@ class _HomePageState extends State<HomePage> {
           child: const DwellingList(),
         );
       case 2:
-        return const Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              Text(
-                'Configuración',
-                style: TextStyle(fontSize: 24),
-              ),
-            ],
-          ),
-        );
+        return const CreateDwellingPage();
 
       default:
         throw Exception('Invalid index: $index');

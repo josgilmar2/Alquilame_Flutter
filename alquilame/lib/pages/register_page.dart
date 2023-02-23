@@ -35,9 +35,7 @@ class _RegisterPageState extends State<RegisterPage> {
                   onSubmitting: (context, state) =>
                       RegisterDialog.show(context),
                   onSubmissionFailed: (context, state) =>
-                      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                          content: Text(
-                              "Hay un error al la hora de crear el usuario"))),
+                      RegisterDialog.hide(context),
                   onSuccess: (context, state) {
                     RegisterDialog.hide(context);
                     if (state.stepCompleted == state.lastStep) {
@@ -47,10 +45,9 @@ class _RegisterPageState extends State<RegisterPage> {
                     }
                   },
                   onFailure: (context, state) {
-                    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                      content: Text(
-                          "Hay un error al la hora de crear el usuario. Puede ser que el username, el email o el teléfono ya estén registrados, el teléfono no tiene 9 números, la contraseña no tenga al menos 8 o más caracteres, una mayúscula, una minúscula, un número y un signo de puntuación"),
-                      duration: Duration(seconds: 6),
+                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                      content: Text(state.failureResponse!),
+                      duration: const Duration(seconds: 10),
                     ));
                     RegisterDialog.hide(context);
                   },

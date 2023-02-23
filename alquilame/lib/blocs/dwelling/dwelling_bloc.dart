@@ -24,6 +24,7 @@ class DwellingBloc extends Bloc<DwellingEvent, DwellingState> {
     on<DwellingFetched>(_onDwellingFetched);
     on<DwellingRefresh>(_onDwellingRefresh);
     on<DwellingUserFetched>(_onDwellingUserFetched);
+    on<DwellingDelete>(_onDwellingDelete);
   }
 
   Future<void> _onDwellingFetched(
@@ -79,6 +80,16 @@ class DwellingBloc extends Bloc<DwellingEvent, DwellingState> {
           dwellings: List.of(state.dwellings)..addAll(dwellings.content),
           hasReachedMax: dwellings.number - 1 <= page));
     } catch (_) {
+      emitter(state.copyWith(status: DwellingStatus.failure));
+    }
+  }
+
+  Future<void> _onDwellingDelete(
+      DwellingDelete event, Emitter<DwellingState> emitter) async {
+    try {
+      await _dwellingService.deleteDwelling(event.id);
+      return emitter(state.copyWith(status: DwellingStatus.delete));
+    } catch (e) {
       emitter(state.copyWith(status: DwellingStatus.failure));
     }
   }

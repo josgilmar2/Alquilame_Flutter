@@ -13,7 +13,7 @@ class RegisterBloc extends FormBloc<String, String> {
   final email = TextFieldBloc(
       validators: [FieldBlocValidators.required, FieldBlocValidators.email]);
 
-  final address = TextFieldBloc();
+  final address = TextFieldBloc(validators: [FieldBlocValidators.required]);
 
   final phoneNumber = TextFieldBloc(validators: [FieldBlocValidators.required]);
 

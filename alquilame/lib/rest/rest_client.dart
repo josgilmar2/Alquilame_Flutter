@@ -71,6 +71,22 @@ class RestClient {
     }
   }
 
+  Future<dynamic> put(String url, dynamic body) async {
+    try {
+      Uri uri = Uri.parse(ApiConstants.baseUrl + url);
+
+      Map<String, String> headers = Map();
+      headers.addAll({"Content-Type": "application/json"});
+
+      final response =
+          await _httpClient.put(uri, body: jsonEncode(body), headers: headers);
+      var jsonResponse = _response(response);
+      return jsonResponse;
+    } on SocketException catch (e) {
+      throw Exception("No internet connection: ${e.message}");
+    }
+  }
+
   Future<dynamic> delete(String url) async {
     try {
       Uri uri = Uri.parse(ApiConstants.baseUrl + url);

@@ -10,3 +10,12 @@ class DwellingFetched extends DwellingEvent {}
 class DwellingRefresh extends DwellingEvent {}
 
 class DwellingUserFetched extends DwellingEvent {}
+
+class DwellingDelete extends DwellingEvent {
+  final int id;
+
+  DwellingDelete({required this.id});
+
+  @override
+  List<Object> get props => [id];
+}

@@ -37,4 +37,18 @@ class UserService {
     }
     return null;
   }
+
+  Future<UserResponse> editPassword(
+      String oldPassword, String newPassword, String verifyNewPassword) async {
+    UserResponse response = await _userRepository.editPassword(
+        oldPassword, newPassword, verifyNewPassword);
+    return response;
+  }
+
+  Future<UserResponse> editProfile(
+      String address, String phoneNumber, String fullName) async {
+    UserResponse response =
+        await _userRepository.editProfile(address, phoneNumber, fullName);
+    return response;
+  }
 }

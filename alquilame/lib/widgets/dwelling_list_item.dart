@@ -1,5 +1,7 @@
 import 'package:alquilame/models/models.dart';
 import 'package:alquilame/pages/dwelling_detail_page.dart';
+import 'package:alquilame/pages/dwelling_user_details_page.dart';
+import 'package:alquilame/widgets/dwelling_user_detail.dart';
 import 'package:flutter/material.dart';
 
 class DwellingListItem extends StatelessWidget {
@@ -40,7 +42,14 @@ class DwellingListItem extends StatelessWidget {
                 children: [
                   TextButton(
                     child: const Text('VER PROPIETARIO'),
-                    onPressed: () {/* ... */},
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) =>
+                                DwellingUserDetailsPage(id: dwelling.id),
+                          ));
+                    },
                   ),
                   TextButton(
                     child: const Text('VER DETALLES'),

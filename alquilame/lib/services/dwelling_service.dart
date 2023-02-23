@@ -62,4 +62,39 @@ class DwellingService {
   Future<void> deleteFavourite(int id) async {
     return _dwellingRepository.deleteFavourite(id);
   }
+
+  Future<OneDwellingResponse> createDwelling(
+      String name,
+      String address,
+      String description,
+      String type,
+      double price,
+      double m2,
+      int numBedrooms,
+      int numBathrooms,
+      bool hasElevator,
+      bool hasPool,
+      bool hasTerrace,
+      bool hasGarage,
+      String provinceName) async {
+    OneDwellingResponse response = await _dwellingRepository.createDwelling(
+        name,
+        address,
+        description,
+        type,
+        price,
+        m2,
+        numBedrooms,
+        numBathrooms,
+        hasElevator,
+        hasPool,
+        hasTerrace,
+        hasGarage,
+        provinceName);
+    return response;
+  }
+
+  Future<void> deleteDwelling(int id) async {
+    return _dwellingRepository.deleteDwelling(id);
+  }
 }

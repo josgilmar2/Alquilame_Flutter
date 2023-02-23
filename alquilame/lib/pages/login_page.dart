@@ -184,21 +184,6 @@ class __SignInFormState extends State<_SignInForm> {
                   const SizedBox(
                     height: 10,
                   ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 25),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        TextButton(
-                          onPressed: () {
-                            //Edit password
-                          },
-                          child: Text('¿Se te ha olvidado la contraseña?',
-                              style: TextStyle(color: Colors.grey[600])),
-                        ),
-                      ],
-                    ),
-                  ),
                   const SizedBox(
                     height: 25,
                   ),

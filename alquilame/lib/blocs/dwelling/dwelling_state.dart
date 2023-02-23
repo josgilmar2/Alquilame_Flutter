@@ -1,7 +1,7 @@
 import 'package:alquilame/models/models.dart';
 import 'package:equatable/equatable.dart';
 
-enum DwellingStatus { initial, success, failure }
+enum DwellingStatus { initial, success, failure, delete }
 
 class DwellingState extends Equatable {
   const DwellingState({
