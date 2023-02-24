@@ -1,4 +1,6 @@
 import 'package:alquilame/blocs/create_dwelling/create_dwelling_bloc.dart';
+import 'package:alquilame/main.dart';
+import 'package:alquilame/pages/home_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_bloc/flutter_form_bloc.dart';
 
@@ -25,10 +27,6 @@ class _CreateDwellingPageState extends State<CreateDwellingPage> {
               )),
             ),
             child: Scaffold(
-              appBar: AppBar(
-                title: const Text("Registro de vivienda"),
-                backgroundColor: Colors.black87,
-              ),
               resizeToAvoidBottomInset: false,
               backgroundColor: Colors.grey[300],
               body: SafeArea(
@@ -39,7 +37,11 @@ class _CreateDwellingPageState extends State<CreateDwellingPage> {
                       CreateDwellingDialog.hide(context),
                   onSuccess: (context, state) {
                     CreateDwellingDialog.hide(context);
-                    Navigator.of(context).pop();
+                    Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => MyApp(),
+                        ));
                   },
                   onFailure: (context, state) {
                     ScaffoldMessenger.of(context).showSnackBar(const SnackBar(

@@ -1,6 +1,7 @@
 import 'package:alquilame/blocs/blocs.dart';
 import 'package:alquilame/blocs/create_dwelling/create_dwelling_bloc.dart';
 import 'package:alquilame/config/locator.dart';
+import 'package:alquilame/main.dart';
 import 'package:alquilame/models/models.dart';
 import 'package:alquilame/pages/create_dwelling_page.dart';
 import 'package:alquilame/pages/dwelling_favourites_list_page.dart';
@@ -9,7 +10,6 @@ import 'package:alquilame/pages/edit_password_page.dart';
 import 'package:alquilame/pages/edit_profile_page.dart';
 import 'package:alquilame/pages/pages.dart';
 import 'package:alquilame/pages/register_page.dart';
-import 'package:alquilame/pages/user_eliminated_page.dart';
 import 'package:alquilame/services/services.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -151,7 +151,7 @@ class _HomePageState extends State<HomePage> {
                         Navigator.pushReplacement(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => const UserEliminatedPage(),
+                              builder: (context) => MyApp(),
                             ));
                       },
                       textColor: Colors.red,
@@ -244,7 +244,7 @@ class _HomePageState extends State<HomePage> {
                         Navigator.pushReplacement(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => const UserEliminatedPage(),
+                              builder: (context) => MyApp(),
                             ));
                       },
                       textColor: Colors.red,
@@ -266,18 +266,7 @@ class _HomePageState extends State<HomePage> {
         );
       case 2:
         if (widget.user.role == "PROPIETARIO") {
-          return Center(
-            child: ElevatedButton(
-              onPressed: () {
-                Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) => const CreateDwellingPage(),
-                ));
-              },
-              style: const ButtonStyle(
-                  backgroundColor: MaterialStatePropertyAll(Colors.black87)),
-              child: const Text("Ir al formulario de registro"),
-            ),
-          );
+          return const CreateDwellingPage();
         } else {
           return const Center(
             child: Text(
