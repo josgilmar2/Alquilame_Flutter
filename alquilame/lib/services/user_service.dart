@@ -61,11 +61,6 @@ class UserService {
   }
 
   Future<void> deleteProfile() async {
-    String? token = _localStorageService.getFromDisk("user_token");
-    if (token != null) {
-      await _localStorageService.deleteFromDisk("user_token");
-      await _userRepository.deleteProfile();
-    }
-    throw Exception("Failed to delete user");
+    await _userRepository.deleteProfile();
   }
 }

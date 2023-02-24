@@ -1,5 +1,4 @@
 import 'package:alquilame/blocs/blocs.dart';
-import 'package:alquilame/blocs/user/user.dart';
 import 'package:alquilame/config/locator.dart';
 import 'package:alquilame/pages/pages.dart';
 import 'package:alquilame/services/services.dart';
@@ -10,25 +9,14 @@ void main() {
   setupAsyncDependencies();
   configureDependencies();
 
-  runApp(
-    MultiBlocProvider(
-      providers: [
-        BlocProvider<AuthBloc>(
-          create: (context) {
-            final authService = getIt<JwtAuthService>();
-            return AuthBloc(authService)..add(AppLoaded());
-          },
-        ),
-        BlocProvider<UserBloc>(
-          create: (context) {
-            final userService = getIt<UserService>();
-            return UserBloc(userService)..add(UserDelete());
-          },
-        )
-      ],
-      child: MyApp(),
-    ),
-  );
+  runApp(BlocProvider<AuthBloc>(
+    create: (context) {
+      final authService = getIt<JwtAuthService>();
+      final userService = getIt<UserService>();
+      return AuthBloc(authService, userService)..add(AppLoaded());
+    },
+    child: MyApp(),
+  ));
 }
 
 class GlobalContext {

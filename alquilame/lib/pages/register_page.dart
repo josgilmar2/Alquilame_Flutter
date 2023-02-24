@@ -1,7 +1,6 @@
 import 'package:alquilame/blocs/blocs.dart';
 import 'package:alquilame/pages/pages.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_form_bloc/flutter_form_bloc.dart';
 
 class RegisterPage extends StatefulWidget {
@@ -45,9 +44,10 @@ class _RegisterPageState extends State<RegisterPage> {
                     }
                   },
                   onFailure: (context, state) {
-                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                      content: Text(state.failureResponse!),
-                      duration: const Duration(seconds: 10),
+                    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                      content: Text(
+                          "El número de teléfono tiene que ser de 9 cifras, las contraseñas tienen que ser de 8 caracteres o más con al menos una mayúscula, una minúscula, un número y un caracter especial o el nombre de usuario o email está escogido"),
+                      duration: Duration(seconds: 10),
                     ));
                     RegisterDialog.hide(context);
                   },

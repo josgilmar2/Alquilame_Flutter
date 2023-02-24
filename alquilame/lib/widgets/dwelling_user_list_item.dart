@@ -107,9 +107,9 @@ class _DwellingUserListItemState extends State<DwellingUserListItem> {
 
                 dwellingBloc.add(DwellingDelete(id: widget.dwelling.id));
 
-                setState(() {
+                /*setState(() {
                   _isDeleting = false;
-                });
+                });*/
 
                 Navigator.of(context).pop();
                 ScaffoldMessenger.of(context).showSnackBar(const SnackBar(

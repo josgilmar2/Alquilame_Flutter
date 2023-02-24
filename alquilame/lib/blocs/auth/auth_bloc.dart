@@ -5,15 +5,19 @@ import 'package:bloc/bloc.dart';
 
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
   final AuthService _authService;
+  final UserService _userService;
 
-  AuthBloc(AuthService authService)
+  AuthBloc(AuthService authService, UserService userService)
       : assert(authService != null),
+        assert(userService != null),
         _authService = authService,
+        _userService = userService,
         super(AuthInitial()) {
     on<AppLoaded>(_onAppLoaded);
     on<UserLoggedIn>(_onUserLoggedIn);
     on<UserLoggedOut>(_onUserLoggedOut);
     on<SessionExpiredEvent>(_onSessionExpired);
+    on<UserDelete>(_onUserDelete);
   }
 
   _onAppLoaded(AppLoaded event, Emitter<AuthState> emitter) async {
@@ -49,5 +53,15 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     print("Sesión expirada");
     await _authService.signOut();
     emitter(SessionExpiredState());
+  }
+
+  _onUserDelete(UserDelete event, Emitter<AuthState> emitter) async {
+    try {
+      await _userService.deleteProfile();
+    } on Exception catch (e) {
+      // TODO
+    }
+    await _authService.signOut();
+    emitter(AuthNotAuthenticated());
   }
 }

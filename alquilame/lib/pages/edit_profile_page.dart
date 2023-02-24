@@ -46,7 +46,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                     ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
                       content: Text("El perfil se ha editado con éxito"),
                     ));
-                    Timer(const Duration(seconds: 3), () {
+                    Timer(const Duration(seconds: 1), () {
                       Navigator.of(context).pop();
                     });
                   },

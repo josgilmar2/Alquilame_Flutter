@@ -1,7 +1,5 @@
 import 'package:alquilame/blocs/blocs.dart';
 import 'package:alquilame/blocs/create_dwelling/create_dwelling_bloc.dart';
-import 'package:alquilame/blocs/user/user_bloc.dart';
-import 'package:alquilame/blocs/user/user_event.dart';
 import 'package:alquilame/config/locator.dart';
 import 'package:alquilame/models/models.dart';
 import 'package:alquilame/pages/create_dwelling_page.dart';
@@ -59,104 +57,205 @@ class _HomePageState extends State<HomePage> {
   Widget _buildBody(int index) {
     switch (index) {
       case 0:
-        return Scaffold(
-          body: SingleChildScrollView(
-            child: Container(
-              padding: const EdgeInsets.all(10),
-              child: Column(
-                children: [
-                  SizedBox(
-                    width: 120,
-                    height: 120,
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(100),
-                      child: Image.network(widget.user.avatar == null
-                          ? "https://simulacionymedicina.es/wp-content/uploads/2015/11/default-avatar-300x300-1.jpg"
-                          : "http://localhost:8080/download/${widget.user.avatar}"),
-                    ),
-                  ),
-                  const SizedBox(height: 10),
-                  Text("${widget.user.fullName}",
-                      style: Theme.of(context).textTheme.headlineMedium),
-                  Text("${widget.user.email}",
-                      style: Theme.of(context).textTheme.bodyMedium),
-                  const SizedBox(height: 20),
-                  SizedBox(
-                    width: 200,
-                    child: ElevatedButton(
-                      onPressed: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => const EditProfilePage(),
-                            ));
-                      },
-                      style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.black,
-                          side: BorderSide.none,
-                          shape: const StadiumBorder()),
-                      child: const Text(
-                        "Editar mi perfil",
-                        style: TextStyle(color: Colors.white),
+        if (widget.user.role == "PROPIETARIO") {
+          return Scaffold(
+            body: SingleChildScrollView(
+              child: Container(
+                padding: const EdgeInsets.all(10),
+                child: Column(
+                  children: [
+                    SizedBox(
+                      width: 120,
+                      height: 120,
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(100),
+                        child: Image.network(widget.user.avatar == null
+                            ? "https://simulacionymedicina.es/wp-content/uploads/2015/11/default-avatar-300x300-1.jpg"
+                            : "http://localhost:8080/download/${widget.user.avatar}"),
                       ),
                     ),
-                  ),
-                  const SizedBox(height: 30),
-                  const Divider(),
-                  const SizedBox(height: 10),
-                  ProfileList(
-                      title: "Ver mis favoritas",
-                      iconData: Icons.favorite,
-                      onPress: () {
-                        Navigator.push(
+                    const SizedBox(height: 10),
+                    Text("${widget.user.fullName}",
+                        style: Theme.of(context).textTheme.headlineMedium),
+                    Text("${widget.user.email}",
+                        style: Theme.of(context).textTheme.bodyMedium),
+                    const SizedBox(height: 20),
+                    SizedBox(
+                      width: 200,
+                      child: ElevatedButton(
+                        onPressed: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => const EditProfilePage(),
+                              ));
+                        },
+                        style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.black,
+                            side: BorderSide.none,
+                            shape: const StadiumBorder()),
+                        child: const Text(
+                          "Editar mi perfil",
+                          style: TextStyle(color: Colors.white),
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 30),
+                    const Divider(),
+                    const SizedBox(height: 10),
+                    ProfileList(
+                        title: "Ver mis favoritas",
+                        iconData: Icons.favorite,
+                        onPress: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) =>
+                                    const DwellingFavouritesListPage(),
+                              ));
+                        }),
+                    ProfileList(
+                        title: "Ver mis viviendas",
+                        iconData: Icons.home,
+                        onPress: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) =>
+                                    const DwellingUserListPage(),
+                              ));
+                        }),
+                    ProfileList(
+                        title: "Editar Contraseña",
+                        iconData: Icons.fingerprint,
+                        onPress: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => const EditPasswordPage(),
+                              ));
+                        }),
+                    ProfileList(
+                      title: "Logout",
+                      iconData: Icons.logout,
+                      onPress: () async {
+                        BlocProvider.of<AuthBloc>(context).add(UserLoggedOut());
+                      },
+                      textColor: Colors.red,
+                    ),
+                    ProfileList(
+                      title: "Eliminar perfil",
+                      iconData: Icons.delete_forever_outlined,
+                      onPress: () async {
+                        BlocProvider.of<AuthBloc>(context).add(UserDelete());
+                        Navigator.pushReplacement(
                             context,
                             MaterialPageRoute(
-                              builder: (context) =>
-                                  const DwellingFavouritesListPage(),
+                              builder: (context) => const UserEliminatedPage(),
                             ));
-                      }),
-                  ProfileList(
-                      title: "Ver mis viviendas",
-                      iconData: Icons.home,
-                      onPress: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) =>
-                                  const DwellingUserListPage(),
-                            ));
-                      }),
-                  ProfileList(
-                      title: "Editar Contraseña",
-                      iconData: Icons.fingerprint,
-                      onPress: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => const EditPasswordPage(),
-                            ));
-                      }),
-                  ProfileList(
-                    title: "Logout",
-                    iconData: Icons.logout,
-                    onPress: () async {
-                      BlocProvider.of<AuthBloc>(context).add(UserLoggedOut());
-                    },
-                    textColor: Colors.red,
-                  ),
-                  ProfileList(
-                    title: "Eliminar perfil",
-                    iconData: Icons.delete_forever_outlined,
-                    onPress: () async {
-                      BlocProvider.of<UserBloc>(context).add(UserDelete());
-                    },
-                    textColor: Colors.red,
-                  )
-                ],
+                      },
+                      textColor: Colors.red,
+                    )
+                  ],
+                ),
               ),
             ),
-          ),
-        );
+          );
+        } else {
+          return Scaffold(
+            body: SingleChildScrollView(
+              child: Container(
+                padding: const EdgeInsets.all(10),
+                child: Column(
+                  children: [
+                    SizedBox(
+                      width: 120,
+                      height: 120,
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(100),
+                        child: Image.network(widget.user.avatar == null
+                            ? "https://simulacionymedicina.es/wp-content/uploads/2015/11/default-avatar-300x300-1.jpg"
+                            : "http://localhost:8080/download/${widget.user.avatar}"),
+                      ),
+                    ),
+                    const SizedBox(height: 10),
+                    Text("${widget.user.fullName}",
+                        style: Theme.of(context).textTheme.headlineMedium),
+                    Text("${widget.user.email}",
+                        style: Theme.of(context).textTheme.bodyMedium),
+                    const SizedBox(height: 20),
+                    SizedBox(
+                      width: 200,
+                      child: ElevatedButton(
+                        onPressed: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => const EditProfilePage(),
+                              ));
+                        },
+                        style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.black,
+                            side: BorderSide.none,
+                            shape: const StadiumBorder()),
+                        child: const Text(
+                          "Editar mi perfil",
+                          style: TextStyle(color: Colors.white),
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 30),
+                    const Divider(),
+                    const SizedBox(height: 10),
+                    ProfileList(
+                        title: "Ver mis favoritas",
+                        iconData: Icons.favorite,
+                        onPress: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) =>
+                                    const DwellingFavouritesListPage(),
+                              ));
+                        }),
+                    ProfileList(
+                        title: "Editar Contraseña",
+                        iconData: Icons.fingerprint,
+                        onPress: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => const EditPasswordPage(),
+                              ));
+                        }),
+                    ProfileList(
+                      title: "Logout",
+                      iconData: Icons.logout,
+                      onPress: () async {
+                        BlocProvider.of<AuthBloc>(context).add(UserLoggedOut());
+                      },
+                      textColor: Colors.red,
+                    ),
+                    ProfileList(
+                      title: "Eliminar perfil",
+                      iconData: Icons.delete_forever_outlined,
+                      onPress: () async {
+                        BlocProvider.of<AuthBloc>(context).add(UserDelete());
+                        Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const UserEliminatedPage(),
+                            ));
+                      },
+                      textColor: Colors.red,
+                    )
+                  ],
+                ),
+              ),
+            ),
+          );
+        }
+
       case 1:
         return BlocProvider(
           create: (context) {

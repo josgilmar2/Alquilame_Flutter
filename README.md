@@ -10,9 +10,9 @@
 </p>
 
 ## Descripción
-Esto es un proyecto sobre una app de alquiler de viviendas que se encuentran distribuidas por provincias. En ella, se podrán registrar distintos usuarios con un rol en concreto (PROPIETARIO O INQUILINO) que podrán hacer distintas cosas dentro de la aplicación. La principal diferencia será que el propietario podrá poner en venta las viviendas mientras que los inquilinos podrán visualizarlas y marcalas como favorita. 
+Esto es un proyecto sobre una app de alquiler de viviendas que se encuentran distribuidas por provincias. En ella, se podrán registrar distintos usuarios con un rol en concreto (PROPIETARIO O INQUILINO) que podrán realizar distintas funciones dentro de la aplicación. La principal diferencia será que el propietario podrá poner en venta las viviendas mientras que los inquilinos podrán visualizarlas y marcalas como favorita. Recordar que esta es la primera versión del proyecto, por lo que se podrán realizar pocas funcionalidades, de las que destacamos el dar like a viviendas posteadas por otros usuarios. A lo largo de estos meses iré agregando más funcionalidades como la de gestionar el alquiler de la vivienda.
 Aquí se encuentra la parte del frontend donde se ha desarrollado una aplicación móvil a partir de la [API REST Alquilame](https://github.com/josgilmar2/Alquilame_App/).
-Recordar que este es solamente el principio del proyecto por lo que se podrán realizar pocas funcionalidades, de las que destacamos el dar like a viviendas posteadas por otros usuarios.
+Recordar que este es solamente el principio del proyecto 
 
 ## Tecnologías utilizadas
 Para realizar esta aplicación móvil hemos utilizado:
